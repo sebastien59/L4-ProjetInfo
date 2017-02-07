@@ -13,11 +13,11 @@ var User = sequelize.define('user', {
 sequelize.sync({force:true}).then(function(){
   //creation données de test
   User.create({
-    login: 'Sebastien',
-    password: '130494',
-    nom: 'Merchez',
-    prenom: 'Sebastien',
-    idStatus: 1,
+    login: 'admin',
+    password: 'test',
+    nom: 'Administrateur',
+    prenom: 'Test',
+    idStatus: 1
   });
 });
 
