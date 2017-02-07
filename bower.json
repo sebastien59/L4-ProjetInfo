@@ -1,0 +1,22 @@
+{
+  "name": "ServiceClient",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Sebastien Merchez <merchez.sebastien@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7",
+    "angular": "^1.6.1"
+  }
+}

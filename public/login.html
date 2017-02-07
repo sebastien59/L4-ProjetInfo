@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" href='./bower_components/bootstrap/dist/css/bootstrap.min.css'>
+    <link rel="stylesheet" href='./bower_components/bootstrap/dist/css/bootstrap-theme.min.css'>
+    <script src="./bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./bower_components/angular/angular.min.js"></script>
+
+    <style>
+    .center{
+       position: absolute;
+       top: 50%;
+       left:50%;
+       transform: translate(-50%,-50%);
+    }
+    </style>
+  </head>
+  <body ng-app="ServiceClient" class="container" ng-controller='loginCtrl'>
+    <form class="jumbotron center" method='post' action='/auth'>
+        <h3>Connexion</h3>
+        <input type="text" placeholder="Identifiant" name="login" class="form-control" ng-model="login"/><br />
+        <input type="text" placeholder="Mot de passe" name="password" class="form-control" ng-model='password'/><br />
+        <input type="submit" name="pwd" class="form-control btn btn-primary" value="Connexion"/>
+    </form>
+
+    <script src='./app/app.js'></script>
+  </body>
+</html>
