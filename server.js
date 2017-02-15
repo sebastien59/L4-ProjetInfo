@@ -1,3 +1,6 @@
+/**
+  Import des modules nécessaires
+**/
 let express = require("express");
 let cookieParser = require("cookie-parser");
 let session = require("express-session");
@@ -7,15 +10,23 @@ let database = require('./config/database.js');
 let bodyParser = require('body-parser');
 var authMiddleware = require('./app/middleware/auth.js');
 
+// initialisation de expressJs
 let app=express();
 
+// Importataion du model User
+let userstatut = require('./app/models/userstatut.js')
 let User = require('./app/models/user.js')
+let Statut = require('./app/models/statut.js')
 
-app.use(bodyParser.urlencoded({
-    extended: true
-}));
+//Creation des associtions
+Statut.belongsToMany(User, {through: userstatut});
+User.belongsToMany(Statut, {through: userstatut});
+
+// Permet d'utiliser le .body pour récupérer les paramètres des requêtes
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+// Initialisation des cookie et session utiliser pour la connection
 app.use(cookieParser());
 app.use(session({
   secret: '3H8KzqnvBCYqfA49nb7MWvv6kE2685U5',
@@ -23,16 +34,19 @@ app.use(session({
   saveUninitialized:false
 }));
 
-/* middleware*/
+// Middleware
 app.use('/admin', authMiddleware);
+app.use('/conseiller', authMiddleware);
 
 app.use('/', express.static('public'));
 
-/* routes */
+// Routes
 app.get('/', controller.index);
 app.get('/login', controller.login);
 app.post('/auth', controller.auth);
 app.post('/register', controller.register);
 app.get('/admin', controller.admin);
+app.get('/conseiller', controller.conseiller);
 
+// Initialisation du port d'écoute.
 app.listen(8080)

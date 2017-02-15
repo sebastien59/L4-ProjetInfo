@@ -1,3 +1,5 @@
+// Fichier de configuration bdd
+
 let Sequelize = require('sequelize');
 
 module.exports ={
