@@ -3,8 +3,9 @@
   Créer un dossier controller et les importer dans celui ci afin de rendre le tout plus claire si nous avons de grand (ou beaucoup de) controller ?
 
 */
-let User = require('./models/user.js')
-
+let Sequelize = require('sequelize');
+let User = require('./models/user.js');
+let Statut = require('./models/statut.js');
 
 let indexController = (req, res) =>{
   res.sendfile('./public/index.html');
@@ -16,24 +17,32 @@ let loginController = (req, res) =>{
 
 let authController = (req, res) =>{
   User.findOne({
-    where: {login:req.body.login, password:req.body.password}
+    where: {login:req.body.login, password:req.body.password},
+    include: [{
+        model: Statut,
+        where: { userId: Sequelize.col('user.id') }
+    }]
   }).then(function(user){
     if(user != null){
-      req.session.login = req.body.login;
-      req.session.nom = user.get("nom");
-      req.session.prenom = user.get("prenom");
-      req.session.statut = user.get("idStatut");
+      user.getStatuts().then(function(statut){
+          console.log(statut[0].libelle)
 
-      if(req.session.statut == 1){
-        res.redirect("/admin");
-      }else if (req.session.statut == 2) {
-        res.redirect("/conseiller");
-      }else if(req.session.statut == 3){
-        res.redirect("/client");
-      }
+          req.session.login = req.body.login;
+          req.session.nom = user.get("nom");
+          req.session.prenom = user.get("prenom");
+          req.session.statut = statut[0].libelle;
+
+          if(req.session.statut == "Administrateur"){
+            res.redirect("/admin");
+          }else if (req.session.statut == "Conseiller") {
+            res.redirect("/conseiller");
+          }else if(req.session.statut == "Client"){
+            res.redirect("/client");
+          }
+      });
     }else{
-      res.redirect("/login")
-    }
+        res.redirect("/login")
+      }
   });
 };
 

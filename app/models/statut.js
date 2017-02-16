@@ -19,13 +19,13 @@ var Statut = sequelize.define('statut', {
 sequelize.sync({force:true}).then(function(){
   //Creation données de test. Possibilité de les mettre ailleurs ?
   Statut.create({
-    libelle: "admin"
+    libelle: "Administrateur"
   });
   Statut.create({
-    libelle: "conseiller"
+    libelle: "Conseiller"
   });
   Statut.create({
-    libelle: "client"
+    libelle: "Client"
   });
 });
 
