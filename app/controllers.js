@@ -25,8 +25,6 @@ let authController = (req, res) =>{
   }).then(function(user){
     if(user != null){
       user.getStatuts().then(function(statut){
-          console.log(statut[0].libelle)
-
           req.session.login = req.body.login;
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
@@ -57,7 +55,7 @@ let adminController = (req, res) =>{
 };
 
 let conseillerController = (req, res) =>{
-  res.sendfile('./public/conseiller.html');
+  res.sendfile('./public/conseiller/index.html');
 };
 
 // Export de chaque controller permettant de les appeller en faisant controller.index

@@ -15,8 +15,8 @@ let app=express();
 
 // Importataion du model User
 let userstatut = require('./app/models/userstatut.js')
-let User = require('./app/models/user.js')
 let Statut = require('./app/models/statut.js')
+let User = require('./app/models/user.js')
 
 //Creation des associtions
 Statut.belongsToMany(User, {through: userstatut});
@@ -47,6 +47,17 @@ app.post('/auth', controller.auth);
 app.post('/register', controller.register);
 app.get('/admin', controller.admin);
 app.get('/conseiller', controller.conseiller);
+app.get('/conseiller/resultat', controller.conseiller);
+app.get('/conseiller/chat/:id', controller.conseiller);
 
+app.get('/views/compte.html', (req, res) => {
+  res.sendfile('./public/conseiller/moncompte.html');
+});
+app.get('/views/resultat.html', (req, res) => {
+  res.sendfile('./public/conseiller/resultat.html');
+});
+app.get('/views/chat.html', (req, res) => {
+  res.sendfile('./public/conseiller/chat.html');
+});
 // Initialisation du port d'écoute.
 app.listen(8080)

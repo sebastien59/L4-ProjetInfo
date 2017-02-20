@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css"/>
+    <base href="/">
+  </head>
+  <body ng-app="ServiceClient" ng-controller="conseillerCtrl">
+    <div class="row">
+      <div class="col-sm-3 col-md-3 col-lg-2" id="sidebar">
+        <div class="row">
+          <div class="sidebar-header col-sm-12 col-md-10 col-md-offset-1 col-lg-10 col-lg-offset-1">
+            <a style="font-size:35px; color:#337ab7; text-decoration:none;">Nom Projet</a>
+          </div>
+        </div>
+        <ul class="sidebar-nav">
+            <li><a href="/conseiller">Mon Compte</a></li>
+            <li><a href="/conseiller/resultat">Résultats</a></li>
+        </ul>
+
+        <div class="col-lg-4 col-lg-offset-4 hr"></div>
+        <div class="clearfix"></div>
+        <h4 class="col-lg-4 col-lg-offset-4">Chats</h4>
+        <div class="clearfix"></div>
+        <div class="list-group col-lg-10 col-lg-offset-2">
+            <a class="list-group-item" href="/conseiller/chat/{{ chat.id }}" ng-repeat="chat in chats"> chat#{{ chat.id }}  <span class="badge">3</span></a>
+        </div>
+      </div>
+
+      <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+    </div>
+
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/controllers/conseiller.js"></script>
+
+    <script>
+      $(document).ready(function(){
+        if($(window).width() > 800){
+          $("#sidebar").height($(window).height());
+        }
+
+        $(window).resize(function(){
+          if($(window).width() > 800){
+            $("#sidebar").height($(window).height());
+          }else{
+            $("#sidebar").height(200);
+          }
+        })
+      })
+    </script>
+  </body>
+</html>

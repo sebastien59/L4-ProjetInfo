@@ -16,11 +16,11 @@
     }
     </style>
   </head>
-  <body ng-app="ServiceClient" class="container" ng-controller='loginCtrl'>
+  <body class="container">
     <form class="jumbotron center" method='post' action='/auth'>
         <h3>Connexion</h3>
-        <input type="text" placeholder="Identifiant" name="login" class="form-control" ng-model="login"/><br />
-        <input type="text" placeholder="Mot de passe" name="password" class="form-control" ng-model='password'/><br />
+        <input type="text" placeholder="Identifiant" name="login" class="form-control"/><br />
+        <input type="text" placeholder="Mot de passe" name="password" class="form-control"/><br />
         <input type="submit" name="pwd" class="form-control btn btn-primary" value="Connexion"/>
     </form>
 
