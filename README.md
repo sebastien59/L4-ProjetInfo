@@ -8,6 +8,8 @@ Statut :
 
 `bower install`
 
+`npm server.js`
+
 Allez sur [http://localhost:8080](http://localhost:8080)
 
 
