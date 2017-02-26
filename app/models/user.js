@@ -29,6 +29,11 @@ sequelize.sync({force:true}).then(function(){
     nom: 'Administrateur',
     prenom: 'Test',
     email: "merchez.sebastien@gmail.com"
+  }).then(function(user){
+    userstatut.create({
+      userId: user.get('id'),
+      statutId: 1,
+    })
   });
   User.create({
     login: 'conseiller',
