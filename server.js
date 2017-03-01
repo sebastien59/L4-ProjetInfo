@@ -59,5 +59,6 @@ app.get('/views/resultat.html', (req, res) => {
 app.get('/views/chat.html', (req, res) => {
   res.sendfile('./public/conseiller/chat.html');
 });
+
 // Initialisation du port d'écoute.
-app.listen(8080)
+app.listen(8080);

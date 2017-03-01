@@ -20,12 +20,14 @@ sequelize.sync({force:true}).then(function(){
   //Creation données de test. Possibilité de les mettre ailleurs ?
   Statut.create({
     libelle: "Administrateur"
-  });
-  Statut.create({
-    libelle: "Conseiller"
-  });
-  Statut.create({
-    libelle: "Client"
+  }).then(function(){
+    Statut.create({
+      libelle: "Conseiller"
+    }).then(function(){
+        Statut.create({
+          libelle: "Client"
+        });
+    });
   });
 });
 

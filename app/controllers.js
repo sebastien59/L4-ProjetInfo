@@ -45,9 +45,7 @@ let authController = (req, res) =>{
 };
 
 let registerController = (req, res) =>{
-  var login = req.param('login');
-  var password = req.param('password');
-  console.log(login + ' --- '+password);
+
 }
 
 let adminController = (req, res) =>{

@@ -4,39 +4,21 @@
   border-top: 1px solid #D5D5D5;
 }
 
-#sidebar {
-  height: 100%;
-  border-right: 1px solid #c4e1f9;
+.header {
+  margin-top:5px;
 }
 
-#sidebar .sidebar-header{
+.header .logo{
   text-align:center;
-  margin-top:10px;
-  margin-bottom:10px;
-  border-bottom: 1px solid #c4e1f9;
-}
-#sidebar ul.sidebar-nav{
-    padding: 0;
-    list-style: none;
-}
-
-#sidebar ul.sidebar-nav li{
-    padding-left: 50px;
-    margin-top:10px;
-    margin-bottom:10px;
-}
-
-#sidebar ul.sidebar-nav li:hover{
-    background:#F1F1F1;
-}
-
-#sidebar ul.sidebar-nav li a{
-  color:black;
-  font-weight: bold;
-  text-decoration: none;
+  margin-top:6px;
+  margin-bottom:6px;
+  color:#337ab7;
 }
 
 /** Chat **/
+#chat{
+  margin-top:70px;
+}
 
 .chat > .well{
   height: inherit;

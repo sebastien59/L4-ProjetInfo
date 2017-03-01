@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ServiceClient', ['ngRoute']);
+var app = angular.module('ServiceClient', ['ngRoute', 'ngAnimate', 'ngTouch', 'ui.bootstrap']);
 
 app.config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -14,7 +14,6 @@ app.config(function ($routeProvider, $locationProvider) {
   .when('/conseiller/chat/:id', {
     templateUrl: '/views/chat.html',
     controller: 'chatCtrl'
-
   })
   .otherwise({
       redirectTo: '/conseiller'
