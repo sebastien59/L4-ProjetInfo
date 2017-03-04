@@ -9,7 +9,8 @@ app.config(function ($routeProvider, $locationProvider) {
     templateUrl: '/views/compte.html'
   })
   .when('/conseiller/resultat', {
-    templateUrl: '/views/resultat.html'
+    templateUrl: '/views/resultat.html',
+    controller: 'resultatCtrl'
   })
   .when('/conseiller/chat/:id', {
     templateUrl: '/views/chat.html',

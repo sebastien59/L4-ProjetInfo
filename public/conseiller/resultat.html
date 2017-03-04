@@ -2,7 +2,25 @@
     <h3>Résultats</h3>
     <div class="row">
       <div class="well col-lg-9 col-lg-offset-1">
-
+          <table class="table">
+              <thead>
+                <th>#</th>
+                <th>Date</th>
+                <th>Durée</th>
+                <th>Note (/10)</th>
+              </thead>
+              <tbody>
+                <tr ng-class="[{'danger': resultat.note < 5},
+                              {'warning': resultat.note == 5},
+                              {'success': resultat.note > 5}]"
+                    ng-repeat="resultat in resultats">
+                  <td>{{ resultat.id }}</td>
+                  <td>{{ resultat.date }}</td>
+                  <td>{{ resultat.duree }}</td>
+                  <td>{{ resultat.note }}</td>
+                </tr>
+              </tbody>
+          </table>
       </div>
     </div>
 </div>

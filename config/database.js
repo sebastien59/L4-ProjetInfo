@@ -9,7 +9,7 @@ module.exports ={
         dialect: 'mysql', // Type de base de données : 'mysql'|'mariadb'|'sqlite'|'postgres'|'mssql'
 
         pool: {
-          max:10,
+          max:1000,
           min:0,
           idle:10000
         }

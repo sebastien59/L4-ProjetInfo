@@ -18,8 +18,8 @@
         <h3 class="logo col-lg-2">Projet</h3>
          <uib-tabset active="active">
            <uib-tab index="0" heading="Mon compte" ng-click='changeRoute("/conseiller")'>
-             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
-             <div id="chat" class="list-group col-lg-2 ">
+             <div id="content" class="col-sm-6 col-md-9 col-lg-10 col-sm-offset-1" ng-view></div>
+             <div id="chat" class="list-group col-lg-2 col-sm-3 col-sm-offset-1">
                   <a class="list-group-item" href="/conseiller/chat/{{ chat.id }}" ng-repeat="chat in chats"> chat#{{ chat.id }}  <span class="badge">3</span></a>
               </div>
            </uib-tab>
@@ -38,6 +38,8 @@
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="../bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
     <script src="../app/app.js"></script>
+    <script src="../app/service/chat.js"></script>
+    <script src="../app/service/user.js"></script>
     <script src="../app/controllers/conseiller.js"></script>
 
   </body>

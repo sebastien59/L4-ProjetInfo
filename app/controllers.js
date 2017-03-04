@@ -12,10 +12,12 @@ let indexController = (req, res) =>{
 };
 
 let loginController = (req, res) =>{
+  console.log(new Date()+" : Accès route login");
   res.sendfile('./public/login.html');
 };
 
 let authController = (req, res) =>{
+  console.log(new Date()+" : Accès route auth");
   User.findOne({
     where: {login:req.body.login, password:req.body.password},
     include: [{
@@ -53,6 +55,7 @@ let adminController = (req, res) =>{
 };
 
 let conseillerController = (req, res) =>{
+  console.log(new Date()+" : Accès route conseiller");
   res.sendfile('./public/conseiller/index.html');
 };
 
