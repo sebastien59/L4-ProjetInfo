@@ -4,8 +4,8 @@
 
 */
 let Sequelize = require('sequelize');
-let User = require('./models/user.js');
 let Statut = require('./models/statut.js');
+let User = require('./models/user.js');
 
 let indexController = (req, res) =>{
   res.sendfile('./public/index.html');
@@ -22,15 +22,15 @@ let authController = (req, res) =>{
     where: {login:req.body.login, password:req.body.password},
     include: [{
         model: Statut,
-        where: { userId: Sequelize.col('user.id') }
+        where: { id: Sequelize.col('user.statutId') }
     }]
   }).then(function(user){
     if(user != null){
-      user.getStatuts().then(function(statut){
+      user.getStatut().then(function(statut){
           req.session.login = req.body.login;
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
-          req.session.statut = statut[0].libelle;
+          req.session.statut = statut.get('libelle');
 
           if(req.session.statut == "Administrateur"){
             res.redirect("/admin");

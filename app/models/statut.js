@@ -6,29 +6,27 @@
 let Sequelize = require('sequelize');
 let database = require('../../config/database.js');
 let sequelize = database.sequelize;
-let User = require('./user.js');
 
 // Initialisation du model
 var Statut = sequelize.define('statut', {
   libelle: Sequelize.STRING(15)
-});
+}, {
+    classMethods: {
+      associate: function(User) {
+
+        Statut.hasOne(User, {
+          onDelete: "CASCADE",
+          foreignKey: {
+            allowNull: false
+          }
+        });
+      }
+    }
+  });
 
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
 */
-sequelize.sync({force:true}).then(function(){
-  //Creation données de test. Possibilité de les mettre ailleurs ?
-  Statut.create({
-    libelle: "Administrateur"
-  }).then(function(){
-    Statut.create({
-      libelle: "Conseiller"
-    }).then(function(){
-        Statut.create({
-          libelle: "Client"
-        });
-    });
-  });
-});
+//sequelize.sync({force:true});
 
-module.exports = Statut;
+module.exports = Statut

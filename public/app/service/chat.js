@@ -37,7 +37,7 @@ angular.module('ServiceClient').factory('chatsFactory', function($http, $q){
       return factory.chats[id];
     },
     sendMessage: function(idChat, message, user){
-      factory.chats[idChat-1].messages.push({texte: message, idSender: user.id});
+      factory.chats[idChat].messages.push({texte: message, idSender: user.id});
     }
   };
 

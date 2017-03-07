@@ -13,14 +13,53 @@ var authMiddleware = require('./app/middleware/auth.js');
 // initialisation de expressJs
 let app=express();
 
-// Importataion du model User
-let userstatut = require('./app/models/userstatut.js')
-let Statut = require('./app/models/statut.js')
-let User = require('./app/models/user.js')
+// Importation du model User
+let Statut = require('./app/models/statut.js');
+let User = require('./app/models/user.js');
 
-//Creation des associtions
-Statut.belongsToMany(User, {through: userstatut});
-User.belongsToMany(Statut, {through: userstatut});
+/*
+  On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev principalement.
+*/
+database.sequelize
+    .query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
+    .then(function(results) {
+        Statut.sync({force:true}).then(function(){
+          Statut.create({
+            libelle: "Administrateur"
+          })
+          Statut.create({
+                libelle: "Conseiller"
+          })
+          Statut.create({
+                    libelle: "Client"
+          }).then(function(){
+            Statut.associate(User); // On lie les statuts au utilisateur
+            User.sync({force:true}).then(function(){
+                User.associate(Statut);
+                //Creation données de test. Possibilité de les mettre ailleurs ?
+                User.create({
+                  login: 'admin',
+                  password: 'test',
+                  nom: 'Administrateur',
+                  prenom: 'Test',
+                  email: "admin@gmail.com",
+                  statutId:1
+                }).then(function(){
+                  User.create({
+                    login: 'conseiller',
+                    password: 'test',
+                    nom: 'Conseiller',
+                    prenom: 'Test',
+                    email: "merchez.sebastien@gmail.com",
+                    statutId: 2
+                  });
+                });
+            });
+          });
+        });
+});
+
+
 
 // Permet d'utiliser le .body pour récupérer les paramètres des requêtes
 app.use(bodyParser.urlencoded({extended: true}));
