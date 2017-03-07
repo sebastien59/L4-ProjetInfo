@@ -1,0 +1,104 @@
+<html>
+  <head>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        var mychat = createChat("Mon Chat");
+        mychat.addMessage("Salut");
+      });
+
+      function createChat(name){
+        var chatbox = document.createElement('div');
+        var messagebox = document.createElement('div');
+        var messageForm = document.createElement('div');
+        var inputMessage = document.createElement('input');
+        var buttonSend = document.createElement('button');
+
+        $(chatbox).addClass("chatbox");
+        $(chatbox).append('<h3>'+name+'</h3>');
+
+        $(messagebox).addClass('messagebox');
+        $(chatbox).append(messagebox);
+
+        $(messageForm).addClass('messageForm');
+        $(inputMessage).attr('type', 'text');
+        $(inputMessage).addClass('inputMessage');
+        $(buttonSend).addClass('buttonSend');
+        $(buttonSend).html('Envoyer');
+
+        $(messageForm).append(inputMessage);
+        $(messageForm).append(buttonSend);
+
+        $(chatbox).append(messageForm);
+
+        $('body').append(chatbox);
+
+        return {
+                  chatbox: $(chatbox),
+                  messagebox: $(messagebox),
+                  input: $(inputMessage),
+                  button: $(buttonSend),
+                  addMessage:function(message){
+                    var div_message = document.createElement('div');
+                    $(div_message).html(message);
+                    this.messagebox.append(message)
+                  }
+                }
+      }
+    </script>
+
+    <style>
+      .chatbox{
+        position: fixed;
+        width:300px;
+        height: 400px;
+        background: #ECEFF1;
+        border-radius: 7px 7px 0px 0px;
+        box-shadow: 0px 0px 10px #b3b3b3;
+        bottom:0;
+        right:30;
+      }
+
+      .chatbox h3{
+        margin:5px;
+        display: block;
+        text-align: center;
+        font-family: Arial;
+        border-bottom: 1px solid #D1D1D1;
+      }
+
+      .chatbox .messagebox{
+        height: 330px;
+      }
+
+      .messageForm .inputMessage{
+        margin-left: 5px;
+        width:230px;
+        height: 27px;
+        font-size:15px;
+        border-radius:3px 0px 0px 3px;
+        border:0;
+        margin-top:2px;
+        box-shadow: 0px 0px 5px #C5C5C5;
+      }
+
+      .messageForm .buttonSend{
+        padding-top:7px;
+        padding-bottom:6px;
+        border-radius: 0px 3px 3px 0px;
+        border:0;
+        width:60px;
+
+        font-family: Arial;
+        font-size: 13px;
+        color:white;
+
+        background:#4688d6;
+        box-shadow: 0px 0px 5px #C5C5C5;
+      }
+    </style>
+  </head>
+  <body>
+
+  </body>
+</html>

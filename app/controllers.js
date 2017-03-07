@@ -59,6 +59,10 @@ let conseillerController = (req, res) =>{
   res.sendfile('./public/conseiller/index.html');
 };
 
+let errorController = (req, res) => {
+  res.status(500).sendfile('./public/error.html');
+}
+
 // Export de chaque controller permettant de les appeller en faisant controller.index
 module.exports = {
   index : indexController,
@@ -66,5 +70,6 @@ module.exports = {
   auth : authController,
   register : registerController,
   admin : adminController,
-  conseiller : conseillerController
+  conseiller : conseillerController,
+  error: errorController
 }

@@ -17,6 +17,6 @@ app.config(function ($routeProvider, $locationProvider) {
     controller: 'chatCtrl'
   })
   .otherwise({
-      redirectTo: '/conseiller'
+      redirectTo: '/error'
     });
 });

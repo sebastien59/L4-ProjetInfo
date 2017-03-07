@@ -99,5 +99,8 @@ app.get('/views/chat.html', (req, res) => {
   res.sendfile('./public/conseiller/chat.html');
 });
 
+
+app.use(controller.error);
+
 // Initialisation du port d'écoute.
 app.listen(8080);
