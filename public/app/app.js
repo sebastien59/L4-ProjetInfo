@@ -18,15 +18,14 @@ app.config(function ($routeProvider, $locationProvider) {
   })
   .when('/admin', {
     templateUrl: '/views/compte.html',
-
   })
   .when('/admin/gestionnaire', {
     templateUrl: '/views/admin/gestionnaire.html',
     controller: 'gestionnaireCtrl'
   })
     .when('/admin/resultat', {
-    templateUrl: '/views/admin/resultat.html',
-    controller: 'ResultCtrl'
+    templateUrl: '/views/resultat.html',
+    controller: 'resultatCtrl'
   })
   .otherwise({
       redirectTo: '/error'

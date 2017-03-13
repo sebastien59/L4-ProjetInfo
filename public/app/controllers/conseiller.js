@@ -39,4 +39,5 @@ app.controller('resultatCtrl', function($scope, $route, chatsFactory, userFactor
     {id:1, date: '01/03/2017', duree: '17 min', note : 5},
     {id:2, date: '02/03/2017', duree: '15 min', note : 2},
   ]
+  $scope.chats=chatsFactory.get();
 });
