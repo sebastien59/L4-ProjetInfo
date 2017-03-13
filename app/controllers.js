@@ -51,7 +51,7 @@ let registerController = (req, res) =>{
 }
 
 let adminController = (req, res) =>{
-  res.send("Admin");
+  res.sendfile('./public/administration/administrateur.html');
 };
 
 let conseillerController = (req, res) =>{

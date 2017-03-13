@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.css"/>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/style.css"/>
+
+    <!-- Définie le chemin de base de l'application pour le routeur AngularJs-->
+    <base href="/">
+    <style>
+        /**
+        * The dnd-list should always have a min-height,
+        * otherwise you can't drop to it once it's empty
+        */
+        .groupList ul[dnd-list] {
+          min-height: 42px;
+          padding-left: 0px;
+        }
+
+        /**
+        * The dndDraggingSource class will be applied to
+        * the source element of a drag operation. It makes
+        * sense to hide it to give the user the feeling
+        * that he's actually moving it.
+        */
+        .groupList ul[dnd-list] .dndDraggingSource {
+          display: none;
+        }
+
+        /**
+        * An element with .dndPlaceholder class will be
+        * added to the dnd-list while the user is dragging
+        * over it.
+        */
+        .groupList ul[dnd-list] .dndPlaceholder {
+          background-color: #ddd;
+          display: block;
+          min-height: 42px;
+        }
+
+        .groupList ul[dnd-list] li {
+          background-color: #fff;
+          border: 1px solid #ddd;
+          border-top-right-radius: 4px;
+          border-top-left-radius: 4px;
+          display: block;
+          padding: 10px 15px;
+          margin-bottom: -1px;
+        }
+
+        /**
+        * Show selected elements in green
+        */
+        .groupList ul[dnd-list] li.selected {
+          background-color: #dff0d8;
+          color: #3c763d;
+        }
+    </style>
+
+
+
+  </head>
+  <body ng-app="ServiceClient" ng-controller="adminCtrl" class="container-fluid">
+
+    <div class="row">
+      <div class="header">
+        <h3 class="logo col-lg-2">Projet</h3>
+         <uib-tabset active="active">
+           <uib-tab index="0" heading="Mon compte" ng-click='changeRoute("/admin")'>
+             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+           </uib-tab>
+           <uib-tab index="1" heading="Gestion de conseillers" ng-click='changeRoute("/admin/gestionnaire")'>
+             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+           </uib-tab>
+           <uib-tab index="2" heading="Résultat" ng-click='changeRoute("/admin/resultat")'>
+             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+           </uib-tab>           
+        </uib-tabset>
+       </div>
+     </div>
+
+    <script src="../bower_components/angular/angular.min.js"></script>
+    <script src="../bower_components/angular-route/angular-route.js"></script>
+    <script src="../bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="../bower_components/angular-touch/angular-touch.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="../bower_components/angular-bootstrap/ui-bootstrap-csp.css"></script>
+    <script src="../app/app.js"></script>
+    <script src="../app/controllers/admin.js"></script>
+    <script src="./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,6 +1,6 @@
 'use strict';
 
-var app = angular.module('ServiceClient', ['ngRoute', 'ngAnimate', 'ngTouch', 'ui.bootstrap']);
+var app = angular.module('ServiceClient', ['ngRoute', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'dndLists']);
 
 app.config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
@@ -15,6 +15,18 @@ app.config(function ($routeProvider, $locationProvider) {
   .when('/conseiller/chat/:id', {
     templateUrl: '/views/chat.html',
     controller: 'chatCtrl'
+  })
+  .when('/admin', {
+    templateUrl: '/views/compte.html',
+
+  })
+  .when('/admin/gestionnaire', {
+    templateUrl: '/views/admin/gestionnaire.html',
+    controller: 'gestionnaireCtrl'
+  })
+    .when('/admin/resultat', {
+    templateUrl: '/views/admin/resultat.html',
+    controller: 'ResultCtrl'
   })
   .otherwise({
       redirectTo: '/error'
