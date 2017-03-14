@@ -27,7 +27,16 @@ app.config(function ($routeProvider, $locationProvider) {
     templateUrl: '/views/resultat.html',
     controller: 'resultatCtrl'
   })
+  .when('/logout', {
+     controller: 'logoutctrl'
+  })    
   .otherwise({
       redirectTo: '/error'
     });
 });
+
+app.controller('logoutctrl', function($scope, $location){
+
+$location.path('/admin')
+
+})

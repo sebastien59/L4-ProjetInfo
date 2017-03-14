@@ -82,6 +82,7 @@ app.use('/', express.static('public'));
 // Routes
 app.get('/', controller.index);
 app.get('/login', controller.login);
+app.get('/logout', controller.logout);
 app.post('/auth', controller.auth);
 app.post('/register', controller.register);
 app.get('/admin', controller.admin);
@@ -90,6 +91,7 @@ app.get('/admin/resultat', controller.admin);
 app.get('/conseiller', controller.conseiller);
 app.get('/conseiller/resultat', controller.conseiller);
 app.get('/conseiller/chat/:id', controller.conseiller);
+
 
 app.get('/views/compte.html', (req, res) => {
   res.sendfile('./public/conseiller/moncompte.html');

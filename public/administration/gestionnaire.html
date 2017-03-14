@@ -43,22 +43,17 @@
       </div>
       <br/>
       <div class="row">
-        <div class="col-md-offset-5 col-md-1">
+        <div class="col-md-offset-2 col-md-1">
         <button type="submit" class="btn btn-primary">Valider les informations</button>
         </div>
       </div>
 </form>
 
 
-<div class="groupList col-lg-5 col-md-5 col-sm-6" ng-repeat="(listName, list) in models.lists">
+<div class="groupList col-lg-3 col-md-4 col-sm-6 col-lg-offset-2" ng-repeat="(listName, list) in models.lists">
   <h2>{{ listName }}</h2>
-  <!-- The dnd-list directive allows to drop elements into it.
-  The dropped data will be added to the referenced list -->
+  
   <ul dnd-list="list">
-    <!-- The dnd-draggable directive makes an element draggable and will
-         transfer the object that was assigned to it. If an element was
-         dragged away, you have to remove it from the original list
-         yourself using the dnd-moved attribute -->
     <li ng-repeat="item in list"
         dnd-draggable="item"
         dnd-moved="list.splice($index, 1)"
@@ -69,4 +64,11 @@
         {{item.label}}
     </li>
   </ul>
+  </div>
+
+<div class="row">
+<div class=" col-md-4 col-lg-offset-2">
+  <input type="text" name="nouveaugroupe"/>
+  <button>+</button>
 </div>
+</div>  

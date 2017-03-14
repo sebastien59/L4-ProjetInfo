@@ -63,10 +63,16 @@ let errorController = (req, res) => {
   res.status(500).sendfile('./public/error.html');
 }
 
+let logoutController = (req, res) => {
+  req.session.destroy();
+  res.redirect("/login");
+}
+
 // Export de chaque controller permettant de les appeller en faisant controller.index
 module.exports = {
   index : indexController,
   login : loginController,
+  logout : logoutController,
   auth : authController,
   register : registerController,
   admin : adminController,
