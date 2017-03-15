@@ -9,7 +9,7 @@ app.controller('adminCtrl', function($scope, $location){
       case '/admin/gestionnaire':
           $scope.active=1;
         break;
-      case '/admin/resultat':
+      case '/admin/historique':
           $scope.active=2;
         break;
       default:
@@ -40,11 +40,11 @@ app.controller('adminCtrl', function($scope, $location){
 
 })
 
-app.controller('resultatCtrl', function($scope, $route){
+app.controller('historiqueCtrl', function($scope, $route){
   $scope.resultats = [
-    {id:0, date: '01/03/2017', duree: '20 min', note : 7},
-    {id:1, date: '01/03/2017', duree: '17 min', note : 5},
-    {id:2, date: '02/03/2017', duree: '15 min', note : 2},
+    {id:0, nom:"Jean", prenom:"Jean", date: '01/03/2017', duree: '20 min', note : 7},
+    {id:1, nom:"Jean", prenom:"Baptiste", date: '01/03/2017', duree: '17 min', note : 5},
+    {id:2, nom:"Jean", prenom:"Pierre", date: '02/03/2017', duree: '15 min', note : 2},
   ]
 });
 

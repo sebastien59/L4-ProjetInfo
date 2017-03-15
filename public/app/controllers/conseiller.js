@@ -6,7 +6,7 @@ app.controller('conseillerCtrl', function($scope, $location, chatsFactory){
     case '/conseiler/moncompte':
         $scope.active=0;
       break;
-    case '/conseiller/resultat':
+    case '/conseiller/historique':
         $scope.active=1;
       break;
     default:
@@ -33,7 +33,7 @@ app.controller('chatCtrl', function($scope, $route, chatsFactory, userFactory){
   }
 });
 
-app.controller('resultatCtrl', function($scope, $route, chatsFactory, userFactory){
+app.controller('historiqueCtrl', function($scope, $route, chatsFactory, userFactory){
   $scope.resultats = [
     {id:0, date: '01/03/2017', duree: '20 min', note : 7},
     {id:1, date: '01/03/2017', duree: '17 min', note : 5},

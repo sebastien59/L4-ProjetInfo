@@ -17,8 +17,8 @@
     <div class="row">
       <div class="header">
         <h3 class="logo col-lg-1 col-md-1 col-sm-2">Projet</h3>
-        
-        
+
+
          <uib-tabset active="active">
            <uib-tab index="0" heading="Mon compte" ng-click='changeRoute("/admin")'>
              <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
@@ -26,7 +26,7 @@
            <uib-tab index="1" heading="Gestion de conseillers" ng-click='changeRoute("/admin/gestionnaire")'>
              <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
            </uib-tab>
-           <uib-tab index="2" heading="Historique" ng-click='changeRoute("/admin/resultat")'>
+           <uib-tab index="2" heading="Historique" ng-click='changeRoute("/admin/historique")'>
              <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
            </uib-tab>
            <div class="col-lg-1" id="disconnect" style="margin-top:10px; float:right">
@@ -35,7 +35,7 @@
               </a>
             </div>
         </uib-tabset>
- 
+
        </div>
      </div>
 
@@ -49,6 +49,6 @@
     <script src="../app/app.js"></script>
     <script src="../app/controllers/admin.js"></script>
     <script src="./bower_components/angular-drag-and-drop-lists/angular-drag-and-drop-lists.js"></script>
-    
+
   </body>
 </html>

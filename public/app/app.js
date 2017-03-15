@@ -6,36 +6,41 @@ app.config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $routeProvider
   .when('/conseiller', {
-    templateUrl: '/views/compte.html'
+    templateUrl: '/views/conseiller/compte.html'
   })
-  .when('/conseiller/resultat', {
-    templateUrl: '/views/resultat.html',
-    controller: 'resultatCtrl'
+  .when('/conseiller/historique', {
+    templateUrl: '/views/conseiller/historique.html',
+    controller: 'historiqueCtrl'
   })
   .when('/conseiller/chat/:id', {
-    templateUrl: '/views/chat.html',
+    templateUrl: '/views/conseiller/chat.html',
     controller: 'chatCtrl'
   })
   .when('/admin', {
-    templateUrl: '/views/compte.html',
+    templateUrl: '/views/admin/compte.html',
   })
   .when('/admin/gestionnaire', {
     templateUrl: '/views/admin/gestionnaire.html',
     controller: 'gestionnaireCtrl'
   })
-    .when('/admin/resultat', {
-    templateUrl: '/views/resultat.html',
-    controller: 'resultatCtrl'
+    .when('/admin/historique', {
+    templateUrl: '/views/admin/historique.html',
+    controller: 'historiqueCtrl'
   })
   .when('/logout', {
     template:'',
-     controller: 'logoutctrl'
+    controller: 'logoutCtrl'
   })
   .otherwise({
-      redirectTo: '/error'
+    template:'',
+    controller: 'errorCtrl'
     });
 });
 
-app.controller('logoutctrl', function($scope, $location, $window){
+app.controller('logoutCtrl', function($scope, $location, $window){
   $window.location.href = '/logout';
+})
+
+app.controller('errorCtrl', function($scope, $location, $window){
+  $window.location.href = '/error';
 })

@@ -87,29 +87,29 @@ app.post('/auth', controller.auth);
 app.post('/register', controller.register);
 app.get('/admin', controller.admin);
 app.get('/admin/gestionnaire', controller.admin);
-app.get('/admin/resultat', controller.admin);
+app.get('/admin/historique', controller.admin);
 app.get('/conseiller', controller.conseiller);
-app.get('/conseiller/resultat', controller.conseiller);
+app.get('/conseiller/historique', controller.conseiller);
 app.get('/conseiller/chat/:id', controller.conseiller);
 
 
-app.get('/views/compte.html', (req, res) => {
+app.get('/views/conseiller/compte.html', (req, res) => {
   res.sendfile('./public/conseiller/moncompte.html');
 });
-app.get('/views/resultat.html', (req, res) => {
-  res.sendfile('./public/conseiller/resultat.html');
+app.get('/views/conseiller/historique.html', (req, res) => {
+  res.sendfile('./public/conseiller/historique.html');
 });
 app.get('/views/chat.html', (req, res) => {
   res.sendfile('./public/conseiller/chat.html');
 });
 app.get('/views/admin/compte.html', (req, res) => {
-  res.sendfile('./public/administration/accueil.html');
+  res.sendfile('./public/administration/moncompte.html');
 });
 app.get('/views/admin/gestionnaire.html', (req, res) => {
   res.sendfile('./public/administration/gestionnaire.html');
 });
-app.get('/views/admin/resultat.html', (req, res) => {
-  res.sendfile('./public/administration/resultat.html');
+app.get('/views/admin/historique.html', (req, res) => {
+  res.sendfile('./public/administration/historique.html');
 });
 
 app.use(controller.error);
