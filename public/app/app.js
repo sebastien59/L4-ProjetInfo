@@ -33,7 +33,7 @@ app.config(function ($routeProvider, $locationProvider) {
   .otherwise({
       redirectTo: '/error'
     });
-});
+})
 
 app.controller('logoutctrl', function($scope, $location){
 
