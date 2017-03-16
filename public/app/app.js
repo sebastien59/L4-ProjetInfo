@@ -28,15 +28,14 @@ app.config(function ($routeProvider, $locationProvider) {
     controller: 'resultatCtrl'
   })
   .when('/logout', {
+    template:'',
      controller: 'logoutctrl'
-  })    
+  })
   .otherwise({
       redirectTo: '/error'
     });
 })
 
-app.controller('logoutctrl', function($scope, $location){
-
-$location.path('/admin')
-
+app.controller('logoutctrl', function($scope, $location, $window){
+  $window.location.href = '/logout';
 })

@@ -15,12 +15,13 @@
 
     <div class="row">
       <div class="header">
-        <h3 class="logo col-lg-2">Projet</h3>
+        <h3 class="logo col-lg-1 col-md-1 col-sm-2">Projet</h3>
+
          <uib-tabset active="active">
            <uib-tab index="0" heading="Mon compte" ng-click='changeRoute("/conseiller")'>
              <div class="row">
                <div id="content" class="col-sm-7 col-md-7 col-lg-7 col-sm-offset-1" ng-view></div>
-               <div id="chat" class="list-group col-lg-2 col-md-4">
+               <div id="chat" class="list-group col-lg-2 col-md-4 col-sm-3">
                     <a class="list-group-item" href="/conseiller/chat/{{ chat.id }}" ng-repeat="chat in chats"> chat#{{ chat.id }}  <span class="badge">3</span></a>
                </div>
              </div>
@@ -28,6 +29,11 @@
            <uib-tab index="1" heading="Historique" ng-click='changeRoute("/conseiller/resultat")'>
              <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
            </uib-tab>
+           <div class="col-lg-1" id="disconnect" style="margin-top:10px; float:right">
+              <a href="/logout">
+                <button type="button" class="btn btn-xs btn-danger glyphicon glyphicon-log-out"  aria-label="logout"></button>
+              </a>
+            </div>
         </uib-tabset>
        </div>
      </div>

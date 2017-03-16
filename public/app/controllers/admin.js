@@ -17,9 +17,9 @@ app.controller('adminCtrl', function($scope, $location){
         break;
     }
 
-  $scope.changeRoute=function(route){
-     $location.path(route);
-  }
+    $scope.changeRoute=function(route){
+       $location.path(route);
+    }
 
 
             $scope.models = {

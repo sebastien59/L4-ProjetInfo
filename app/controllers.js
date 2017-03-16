@@ -8,7 +8,8 @@ let Statut = require('./models/statut.js');
 let User = require('./models/user.js');
 
 let indexController = (req, res) =>{
-  res.sendfile('./public/index.html');
+  //res.sendfile('./public/index.html');
+  res.redirect('/login');
 };
 
 let loginController = (req, res) =>{
