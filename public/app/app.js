@@ -35,7 +35,7 @@ app.config(function ($routeProvider, $locationProvider) {
     template:'',
     controller: 'errorCtrl'
     });
-});
+})
 
 app.controller('logoutCtrl', function($scope, $location, $window){
   $window.location.href = '/logout';
