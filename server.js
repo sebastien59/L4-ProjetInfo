@@ -26,36 +26,38 @@ database.sequelize
         Statut.sync({force:true}).then(function(){
           Statut.create({
             libelle: "Administrateur"
-          })
-          Statut.create({
-                libelle: "Conseiller"
-          })
-          Statut.create({
-                    libelle: "Client"
           }).then(function(){
-            Statut.associate(User); // On lie les statuts au utilisateur
-            User.sync({force:true}).then(function(){
-                User.associate(Statut);
-                //Creation données de test. Possibilité de les mettre ailleurs ?
-                User.create({
-                  login: 'admin',
-                  password: 'test',
-                  nom: 'Administrateur',
-                  prenom: 'Test',
-                  email: "admin@gmail.com",
-                  statutId:1
-                }).then(function(){
-                  User.create({
-                    login: 'conseiller',
-                    password: 'test',
-                    nom: 'Conseiller',
-                    prenom: 'Test',
-                    email: "merchez.sebastien@gmail.com",
-                    statutId: 2
-                  });
+            Statut.create({
+                  libelle: "Conseiller"
+            }).then(function(){
+              Statut.create({
+                        libelle: "Client"
+              }).then(function(){
+                Statut.associate(User); // On lie les statuts au utilisateur
+                User.sync({force:true}).then(function(){
+                    User.associate(Statut);
+                    //Creation données de test. Possibilité de les mettre ailleurs ?
+                    User.create({
+                      login: 'admin',
+                      password: 'test',
+                      nom: 'Administrateur',
+                      prenom: 'Test',
+                      email: "admin@gmail.com",
+                      statutId:1
+                    }).then(function(){
+                      User.create({
+                        login: 'conseiller',
+                        password: 'test',
+                        nom: 'Conseiller',
+                        prenom: 'Test',
+                        email: "merchez.sebastien@gmail.com",
+                        statutId: 2
+                      });
+                    });
                 });
+              });
             });
-          });
+          })
         });
 });
 
