@@ -1,10 +1,52 @@
-<div id="content" class="col-sm-12 col-md-9 col-lg-10 col-lg-offset-1">
+<div id="content" class="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
     <h3>Historique</h3>
     <div class="row">
-      <div class="well col-sm-12 col-lg-9 col-lg-offset-1">
+      <div class="well">
+        <h4>Filtres</h4>
+        <label class="col-xs-10">
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Conseiller:</div>
+          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+            <select type="text" class="form-control" multiple ng-model="idConseiller">
+                  <option value="all">Tous</option>
+                  <option value="0">Jean Jean</option>
+                  <option value="1">Baptiste Jean</option>
+                  <option value="2">Pierre Jean</option>
+              </select>
+          </div>
+        </label>
+        <div class="col-xs-10">
+          <label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Date Debut:</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+              <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateDebut" is-open="popup1.opened" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open1()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+          </label>
+          <label>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Date Fin:</div>
+            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-7">
+              <p class="input-group">
+                <input type="text" class="form-control" uib-datepicker-popup="{{format}}" ng-model="dateFin" is-open="popup2.opened" close-text="Close"/>
+                <span class="input-group-btn">
+                  <button type="button" class="btn btn-default" ng-click="open2()"><i class="glyphicon glyphicon-calendar"></i></button>
+                </span>
+              </p>
+            </div>
+          </label>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="well col-sm-12 col-md-12 col-lg-9 col-lg-offset-1">
           <table class="table">
               <thead>
                 <th>#</th>
+                <th>Nom</th>
                 <th>Date</th>
                 <th>Durée</th>
                 <th>Note (/10)</th>
@@ -13,9 +55,10 @@
                 <tr ng-class="[{'danger': resultat.note < 5},
                               {'warning': resultat.note == 5},
                               {'success': resultat.note > 5}]"
-                    ng-repeat="resultat in resultats">
+                    ng-repeat="resultat in resultats | filterConseiller:idConseiller | filterDate:dateDebut:dateFin">
+                  <td>{{ resultat.id }}</td>
                   <td>{{ resultat.prenom }} {{ resultat.nom }}</td>
-                  <td>{{ resultat.date }}</td>
+                  <td>{{ resultat.date | date : "dd/MM/yyyy" }}</td>
                   <td>{{ resultat.duree }}</td>
                   <td>{{ resultat.note }}</td>
                 </tr>

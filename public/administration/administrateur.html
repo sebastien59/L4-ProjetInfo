@@ -16,18 +16,17 @@
   <body ng-app="ServiceClient" ng-controller="adminCtrl" class="container-fluid">
     <div class="row">
       <div class="header">
-        <h3 class="logo col-lg-1 col-md-1 col-sm-2">Projet</h3>
-
+        <h3 class="logo col-lg-1 col-md-1 col-sm-2 col-xs-2">Projet</h3>
 
          <uib-tabset active="active">
            <uib-tab index="0" heading="Mon compte" ng-click='changeRoute("/admin")'>
-             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+             <div id="content" class="col-sm-12 col-md-10 col-lg-10" ng-view></div>
            </uib-tab>
            <uib-tab index="1" heading="Gestion de conseillers" ng-click='changeRoute("/admin/gestionnaire")'>
-             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+             <div id="content" class="col-sm-9 col-md-10 col-lg-10" ng-view></div>
            </uib-tab>
            <uib-tab index="2" heading="Historique" ng-click='changeRoute("/admin/historique")'>
-             <div id="content" class="col-sm-9 col-md-9 col-lg-10" ng-view></div>
+             <div id="content" class="col-sm-9 col-md-10 col-lg-10" ng-view></div>
            </uib-tab>
            <div class="col-lg-1" id="disconnect" style="margin-top:10px; float:right">
               <a href="/logout">

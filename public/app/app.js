@@ -44,3 +44,58 @@ app.controller('logoutCtrl', function($scope, $location, $window){
 app.controller('errorCtrl', function($scope, $location, $window){
   $window.location.href = '/error';
 })
+
+
+/* FILTRES */
+app.filter('filterConseiller', function () {
+  return function (items, idSelected) {
+    var filtered = [];
+    if(idSelected !== undefined && idSelected.indexOf("all") == -1){
+      for (var i = 0; i < items.length; i++) {
+        if(idSelected.indexOf(items[i].idConseiller.toString()) != -1){
+          filtered.push(items[i]);
+        }
+      };
+
+      return filtered;
+    }
+
+    return items;
+  };
+});
+
+app.filter('filterDate', function () {
+  return function (items, dateDebut, dateFin) {
+    var filtered = [];
+
+    if((dateDebut !== undefined && dateDebut != "") || (dateFin !== undefined && dateFin != "")){
+      if(dateDebut !== undefined && dateDebut != ""){
+        dateDebut.setHours(0);
+        dateDebut.setMinutes(0);
+        dateDebut.setSeconds(0);
+        dateDebut.setMilliseconds(0);
+      }else{
+        dateDebut = new Date();
+        dateDebut.setTime(0);
+      }
+
+      if(dateFin !== undefined && dateFin != ""){
+        dateFin.setHours(0);
+        dateFin.setMinutes(0);
+        dateFin.setSeconds(0);
+        dateFin.setMilliseconds(0);
+      }else{
+        dateFin = new Date();
+      }
+
+      for (var i = 0; i < items.length; i++) {
+        if(items[i].date >= dateDebut && items[i].date <= dateFin){
+          filtered.push(items[i]);
+        }
+      }
+      return filtered;
+    }
+
+    return items;
+  };
+});
