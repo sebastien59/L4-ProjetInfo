@@ -22,21 +22,21 @@ app.controller('adminCtrl', function($scope, $location){
     }
 
 
-            $scope.models = {
-                selected: null,
-                lists: {"A": [], "B": []}
-            };
+    $scope.models = {
+        selected: null,
+        lists: {"Groupe": [], "Conseiller": []}
+    };
 
-            // Generate initial model
-            for (var i = 1; i <= 3; ++i) {
-                $scope.models.lists.A.push({label: "Item A" + i});
-                $scope.models.lists.B.push({label: "Item B" + i});
-            }
+    // Generate initial model
+    for (var i = 1; i <= 3; ++i) {
+        $scope.models.lists.Groupe.push({label: "Conseiller " + i});
+        $scope.models.lists.Conseiller.push({label: "Conseiller " + (i+4)});
+    }
 
-            // Model to JSON for demo purpose
-            $scope.$watch('models', function(model) {
-                $scope.modelAsJson = angular.toJson(model, true);
-            }, true);
+    // Model to JSON for demo purpose
+    $scope.$watch('models', function(model) {
+        $scope.modelAsJson = angular.toJson(model, true);
+    }, true);
 
 })
 

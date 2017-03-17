@@ -50,9 +50,18 @@
 </form>
 
 
+<div class="row marginTop30">
+  <div class='col-md-2 col-md-offset-2' >
+    <select class="form-control">
+        <option>groupe 1</option>
+        <option>groupe 3</option>
+        <option>groupe 2</option>
+    </select>
+  </div>
+</div>
 <div class="groupList col-lg-3 col-md-4 col-sm-6 col-lg-offset-2" ng-repeat="(listName, list) in models.lists">
   <h2>{{ listName }}</h2>
-  
+
   <ul dnd-list="list">
     <li ng-repeat="item in list"
         dnd-draggable="item"
@@ -61,7 +70,9 @@
         dnd-selected="models.selected = item"
         ng-class="{'selected': models.selected === item}"
         >
-        {{item.label}}
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{item.label}}</div>
+        <div class="glyphicon glyphicon-trash col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+        <div class="glyphicon glyphicon-edit"></div>
     </li>
   </ul>
   </div>
@@ -73,4 +84,4 @@
   </div>
   <button class="btn btn-primary">+</button>
 </div>
-</div>  
+</div>
