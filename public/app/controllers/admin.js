@@ -22,7 +22,19 @@ app.controller('adminCtrl', function($scope, $location){
     }
 
 
-    $scope.models = {
+})
+
+app.controller('historiqueCtrl', function($scope, $route){
+  $scope.resultats = [
+    {id:0, nom:"Jean", prenom:"Jean", date: '01/03/2017', duree: '20 min', note : 7},
+    {id:1, nom:"Jean", prenom:"Baptiste", date: '01/03/2017', duree: '17 min', note : 5},
+    {id:2, nom:"Jean", prenom:"Pierre", date: '02/03/2017', duree: '15 min', note : 2},
+  ]
+});
+
+app.controller('gestionnaireCtrl',function($scope, $location, $http){
+
+      $scope.models = {
         selected: null,
         lists: {"Groupe": [], "Conseiller": []}
     };
@@ -38,18 +50,11 @@ app.controller('adminCtrl', function($scope, $location){
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
 
-})
-
-app.controller('historiqueCtrl', function($scope, $route){
-  $scope.resultats = [
-    {id:0, nom:"Jean", prenom:"Jean", date: '01/03/2017', duree: '20 min', note : 7},
-    {id:1, nom:"Jean", prenom:"Baptiste", date: '01/03/2017', duree: '17 min', note : 5},
-    {id:2, nom:"Jean", prenom:"Pierre", date: '02/03/2017', duree: '15 min', note : 2},
-  ]
-});
-
-app.controller('gestionnaireCtrl',function($scope, $location){
-
-
+$scope.registerConseiller = function(){
+  $http.post("/register",{"nom":$scope.nom,"prenom":$scope.prenom,"email":$scope.email,"password":$scope.password})
+  .then(function(){
+    console.log("Envoi requete http réussi !");
+  })
+}
 
 })

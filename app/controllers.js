@@ -49,6 +49,14 @@ let authController = (req, res) =>{
 
 let registerController = (req, res) =>{
 
+User.create({
+  nom:req.body.nom,
+  prenom:req.body.prenom,
+  email:req.body.email,
+  password:req.body.password,
+  statutId:2
+})
+res.send("insertion correcte");
 }
 
 let adminController = (req, res) =>{
