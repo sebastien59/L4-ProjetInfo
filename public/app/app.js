@@ -56,10 +56,8 @@ app.filter('filterConseiller', function () {
           filtered.push(items[i]);
         }
       };
-
       return filtered;
     }
-
     return items;
   };
 });
@@ -95,7 +93,29 @@ app.filter('filterDate', function () {
       }
       return filtered;
     }
+    return items;
+  };
+});
 
+app.filter('filterNote', function () {
+  return function (items, noteMin, noteMax) {
+    var filtered = [];
+
+    if(noteMin !== undefined || noteMax !== undefined){
+      for (var i = 0; i < items.length; i++) {
+        if(noteMin === undefined){
+          noteMin = 0;
+        }
+        if(noteMax === undefined){
+          noteMax=10
+        }
+
+        if(items[i].note >= noteMin && items[i].note <= noteMax){
+          filtered.push(items[i]);
+        }
+      }
+      return filtered;
+    }
     return items;
   };
 });

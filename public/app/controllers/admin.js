@@ -35,13 +35,10 @@ app.controller('historiqueCtrl', function($scope, $route){
     {id:4, idConseiller: 2, nom:"Jean", prenom:"Pierre", date: new Date('2017/03/09'), duree: '15 min', note : 2},
   ]
 
+  $scope.noteMin=0;
+  $scope.noteMax=10;
 
   // Gestion des DatePicker
-/*  $scope.today = function() {
-    $scope.dateDebut = new Date();
-    $scope.dateFin = new Date();
-  };
-  $scope.today();*/
 
   $scope.clear = function() {
     $scope.dateDebut = null;

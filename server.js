@@ -101,7 +101,7 @@ app.get('/views/conseiller/compte.html', (req, res) => {
 app.get('/views/conseiller/historique.html', (req, res) => {
   res.sendfile('./public/conseiller/historique.html');
 });
-app.get('/views/chat.html', (req, res) => {
+app.get('/views/conseiller/chat.html', (req, res) => {
   res.sendfile('./public/conseiller/chat.html');
 });
 app.get('/views/admin/compte.html', (req, res) => {
