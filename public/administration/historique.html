@@ -1,11 +1,11 @@
-<div id="content" class="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1">
+<div id="content" class="col-sm-12 col-md-12 col-lg-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-2">
     <h3>Historique</h3>
     <div class="row">
       <div class="well">
         <h4>Filtres</h4>
-        <label class="col-lg-4 col-xs-10">
-          <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Conseiller:</div>
-          <div class="col-lg-8 col-md-4 col-sm-4 col-xs-7">
+        <label class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
+          <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">Conseiller:</div>
+          <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
             <select type="text" class="form-control" multiple ng-model="idConseiller">
                   <option value="all">Tous</option>
                   <option value="0">Jean Jean</option>
@@ -14,10 +14,10 @@
               </select>
           </div>
         </label>
-        <div class="col-lg-4 col-xs-10">
+        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
           <label>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Date Debut:</div>
-            <div class="col-lg-8 col-md-4 col-sm-4 col-xs-7">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">Date Debut:</div>
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
               <p class="input-group">
                 <input type="text" class="form-control input-sm" uib-datepicker-popup="{{format}}" ng-model="dateDebut" is-open="popup1.opened" close-text="Close"/>
                 <span class="input-group-btn">
@@ -27,8 +27,8 @@
             </div>
           </label>
           <label>
-            <div class="col-lg-4 col-md-4 col-sm-4 col-xs-5">Date Fin:</div>
-            <div class="col-lg-8 col-md-4 col-sm-4 col-xs-7">
+            <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">Date Fin:</div>
+            <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
               <p class="input-group">
                 <input type="text" class="form-control input-sm" uib-datepicker-popup="{{format}}" ng-model="dateFin" is-open="popup2.opened" close-text="Close"/>
                 <span class="input-group-btn">
@@ -38,18 +38,18 @@
             </div>
           </label>
         </div>
-        <div class="col-lg-4 col-xs-10">
+        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-10">
           <label>
-            <div class="col-lg-7 col-md-4 col-sm-4 col-xs-5">Note Min:</div>
-            <div class="col-lg-5 col-md-4 col-sm-4 col-xs-7">
+            <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">Note Min:</div>
+            <div class="col-lg-5 col-md-6 col-sm-5 col-xs-5">
               <p class="input-group">
                 <input type="number" class="form-control input-sm" ng-model="noteMin" min="0" max="10">
               </p>
             </div>
           </label>
           <label>
-            <div class="col-lg-7 col-md-4 col-sm-4 col-xs-5">Note Max:</div>
-            <div class="col-lg-5 col-md-4 col-sm-4 col-xs-7">
+            <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">Note Max:</div>
+            <div class="col-lg-5 col-md-6 col-sm-5 col-xs-5">
               <p class="input-group">
                 <input type="number" class="form-control input-sm" ng-model="noteMax" min="0" max="10">
               </p>

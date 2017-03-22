@@ -19,20 +19,23 @@ let loginController = (req, res) =>{
 
 let authController = (req, res) =>{
   console.log(new Date()+" : Accès route auth");
+  console.log(req.body.login, req.body.password)
   User.findOne({
-    where: {login:req.body.login, password:req.body.password},
+    where: {email:req.body.login, password:req.body.password},
     include: [{
         model: Statut,
         where: { id: Sequelize.col('user.statutId') }
     }]
   }).then(function(user){
+
     if(user != null){
       user.getStatut().then(function(statut){
-          req.session.login = req.body.login;
+
+          req.session.email = user.get("email");
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
           req.session.statut = statut.get('libelle');
-
+          console.log("coucocuocuocucou")
           if(req.session.statut == "Administrateur"){
             res.redirect("/admin");
           }else if (req.session.statut == "Conseiller") {
@@ -49,14 +52,19 @@ let authController = (req, res) =>{
 
 let registerController = (req, res) =>{
 
-User.create({
-  nom:req.body.nom,
-  prenom:req.body.prenom,
-  email:req.body.email,
-  password:req.body.password,
-  statutId:2
-})
-res.send("insertion correcte");
+  if(req.body.password == req.body.passwordConfirm && req.body.nom != "" && req.body.prenom != "" && req.body.email != ""){
+    User.create({
+      nom:req.body.nom,
+      prenom:req.body.prenom,
+      email:req.body.email,
+      password:req.body.password,
+      statutId:2
+    });
+    res.send("insertion correcte");
+  }else{
+    res.send("{error: 'erreur verification mot de passe'}");
+  }
+
 }
 
 let adminController = (req, res) =>{

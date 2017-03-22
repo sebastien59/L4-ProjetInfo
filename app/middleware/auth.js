@@ -6,7 +6,7 @@ let session = require("express-session");
 
 module.exports=  function (req, res, next) {
   // Est ce que la session existe ?
-  if(req.session.login != undefined){
+  if(req.session.email != undefined){
       switch(req.baseUrl){
         case '/conseiller':
             if(req.session.statut != 'Conseiller'){

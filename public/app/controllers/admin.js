@@ -81,6 +81,16 @@ app.controller('historiqueCtrl', function($scope, $route){
 });
 
 app.controller('gestionnaireCtrl',function($scope, $location, $http){
+    $scope.password="";
+    $scope.passwordConfirm="";
+
+    $scope.showError= function(){
+        return ($scope.passwordConfirm != '' && $scope.passwordConfirm != $scope.password);
+    }
+
+    $scope.disableButton = function(){
+        return $scope.formInscription.email.$valid == false || $scope.showError() == true || $scope.password == "" || $scope.passwordConfirm == "" || $scope.email == "" || $scope.nom == "" || $scope.prenom == "";
+      }
 
     $scope.models = {
         selected: null,
@@ -99,7 +109,7 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http){
     }, true);
 
     $scope.registerConseiller = function(){
-      $http.post("/register",{"nom":$scope.nom,"prenom":$scope.prenom,"email":$scope.email,"password":$scope.password})
+      $http.post("/register",{"nom":$scope.nom,"prenom":$scope.prenom,"email":$scope.email,"password":$scope.password,"passwordConfirm":$scope.passwordConfirm})
       .then(function(){
         console.log("Envoi requete http réussi !");
       })

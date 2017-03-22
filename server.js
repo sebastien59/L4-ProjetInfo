@@ -38,7 +38,6 @@ database.sequelize
                     User.associate(Statut);
                     //Creation données de test. Possibilité de les mettre ailleurs ?
                     User.create({
-                      login: 'admin',
                       password: 'test',
                       nom: 'Administrateur',
                       prenom: 'Test',
@@ -46,7 +45,6 @@ database.sequelize
                       statutId:1
                     }).then(function(){
                       User.create({
-                        login: 'conseiller',
                         password: 'test',
                         nom: 'Conseiller',
                         prenom: 'Test',
