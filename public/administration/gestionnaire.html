@@ -40,7 +40,7 @@
             <input type="password" class="form-control" id="password" ng-change="showError()" ng-model="password" placeholder="Mot de passe">
             <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="password != '' && passwordConfirm == password"></span>
             <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="passwordConfirm != '' && passwordConfirm != password"></span>
-            <span ng-show='showError()' class="help-block">Les deux mots de passe sont différent</span>
+            <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
           </div>
         </div>
         <div class="col-md-offset-1 col-md-3">
@@ -51,14 +51,15 @@
         <input type="password" class="form-control" id="vpassword" ng-change="showError()" ng-model="passwordConfirm" placeholder="Vérification mot de passe">
         <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="password != '' && passwordConfirm == password"></span>
         <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="passwordConfirm != '' && passwordConfirm != password"></span>
-        <span ng-show='showError()' class="help-block">Les deux mots de passe sont différent</span>
+        <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
         </div>
         </div>
       </div>
       <br/>
       <div class="row">
-        <div class="col-md-offset-2 col-md-1">
-        <button type="submit"  ng-click="registerConseiller()" class="btn btn-primary" ng-disabled='disableButton()'>Valider les informations</button>
+        <div class="col-lg-12 col-md-offset-2 col-md-1">
+          <button type="submit"  ng-click="registerConseiller()" class="btn btn-primary col-lg-2" ng-disabled='disableButton()'>Valider les informations</button>
+          <span ng-class="['col-lg-2 col-md-offset-1 col-md-3', {'alert alert-danger alerterror': error !== undefined}]"> {{ error }}</span>
         </div>
       </div>
 </form>

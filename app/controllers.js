@@ -35,7 +35,7 @@ let authController = (req, res) =>{
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
           req.session.statut = statut.get('libelle');
-          console.log("coucocuocuocucou")
+
           if(req.session.statut == "Administrateur"){
             res.redirect("/admin");
           }else if (req.session.statut == "Conseiller") {
@@ -52,7 +52,8 @@ let authController = (req, res) =>{
 
 let registerController = (req, res) =>{
 
-  if(req.body.password == req.body.passwordConfirm && req.body.nom != "" && req.body.prenom != "" && req.body.email != ""){
+  if(req.body.password == req.body.passwordConfirm && req.body.nom !== undefined && req.body.prenom !== undefined  && req.body.email !== undefined){
+    console.log(req.body)
     User.create({
       nom:req.body.nom,
       prenom:req.body.prenom,
@@ -60,9 +61,9 @@ let registerController = (req, res) =>{
       password:req.body.password,
       statutId:2
     });
-    res.send("insertion correcte");
+    res.send("{result: insertion correcte}");
   }else{
-    res.send("{error: 'erreur verification mot de passe'}");
+    res.send(JSON.stringify({error: "Erreur lors de l\'inscription"}));
   }
 
 }

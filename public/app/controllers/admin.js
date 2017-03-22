@@ -110,8 +110,9 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http){
 
     $scope.registerConseiller = function(){
       $http.post("/register",{"nom":$scope.nom,"prenom":$scope.prenom,"email":$scope.email,"password":$scope.password,"passwordConfirm":$scope.passwordConfirm})
-      .then(function(){
-        console.log("Envoi requete http réussi !");
+      .then(function(reponse){
+        console.log(reponse.data.error);
+        $scope.error=reponse.data.error;
       })
     }
 
