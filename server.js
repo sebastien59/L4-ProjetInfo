@@ -41,14 +41,14 @@ database.sequelize
                       password: 'test',
                       nom: 'Administrateur',
                       prenom: 'Test',
-                      email: "admin@gmail.com",
+                      email: "admin@admin.com",
                       statutId:1
                     }).then(function(){
                       User.create({
                         password: 'test',
                         nom: 'Conseiller',
                         prenom: 'Test',
-                        email: "merchez.sebastien@gmail.com",
+                        email: "conseiller@conseiller.com",
                         statutId: 2
                       });
                     });

@@ -8,7 +8,7 @@
   margin-top:30px;
 }
 
-.alerterror{
+.alerterror, .alertsuccess{
   padding:7px;
 }
 

@@ -80,9 +80,10 @@ app.controller('historiqueCtrl', function($scope, $route){
   };
 });
 
-app.controller('gestionnaireCtrl',function($scope, $location, $http){
+app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory){
     $scope.password="";
     $scope.passwordConfirm="";
+
 
     $scope.showError= function(){
         return ($scope.passwordConfirm != '' && $scope.passwordConfirm != $scope.password);
@@ -109,11 +110,23 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http){
     }, true);
 
     $scope.registerConseiller = function(){
-      $http.post("/register",{"nom":$scope.nom,"prenom":$scope.prenom,"email":$scope.email,"password":$scope.password,"passwordConfirm":$scope.passwordConfirm})
-      .then(function(reponse){
-        console.log(reponse.data.error);
-        $scope.error=reponse.data.error;
-      })
+      let user = {
+        nom:$scope.nom,
+        prenom:$scope.prenom,
+        email:$scope.email,
+        password:$scope.password,
+        passwordConfirm:$scope.passwordConfirm,
+      }
+
+      userFactory.addUser(user).then(function(reponse){
+        if(reponse.error !== undefined){
+          $scope.error=reponse.error;
+          $scope.resultat = '';
+        }else {
+          $scope.error='';
+          $scope.resultat = reponse.result;
+        }
+      });
     }
 
 })

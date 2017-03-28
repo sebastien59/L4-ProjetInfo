@@ -53,19 +53,20 @@ let authController = (req, res) =>{
 let registerController = (req, res) =>{
 
   if(req.body.password == req.body.passwordConfirm && req.body.nom !== undefined && req.body.prenom !== undefined  && req.body.email !== undefined){
-    console.log(req.body)
     User.create({
       nom:req.body.nom,
       prenom:req.body.prenom,
       email:req.body.email,
       password:req.body.password,
       statutId:2
+    }).then(function(){
+      res.send(JSON.stringify({result: 'insertion correcte'}));
+    }).catch(function (err) {
+        res.send(JSON.stringify({error: "Erreur lors de l\'inscription"}));
     });
-    res.send("{result: insertion correcte}");
   }else{
     res.send(JSON.stringify({error: "Erreur lors de l\'inscription"}));
   }
-
 }
 
 let adminController = (req, res) =>{
