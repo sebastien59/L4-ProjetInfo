@@ -17,9 +17,12 @@ let app=express();
 let Statut = require('./app/models/statut.js');
 let User = require('./app/models/user.js');
 let Groupe = require('./app/models/groupe.js');
+let Chat = require('./app/models/chat.js');
+let Appel = require('./app/models/appel.js');
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev principalement.
 */
+
 database.sequelize
     .query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
     .then(function(results) {
