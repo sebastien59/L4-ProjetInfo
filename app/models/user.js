@@ -13,14 +13,14 @@ var User = sequelize.define('user', {
   prenom: Sequelize.STRING(40),
   email: {type: Sequelize.STRING(40), unique:true},
   password: Sequelize.STRING(50),
+  groupeId: Sequelize.INTEGER,
   statutId: {
     type: Sequelize.INTEGER,
     references: {
       model: "statuts",
       key: "statutid"
     }
-  },
-  groupeId: Sequelize.INTEGER
+  }
 }, {
     classMethods: {
       associate: function(Statut) {
@@ -32,6 +32,6 @@ var User = sequelize.define('user', {
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
 */
-User.sync({force:true});
+//sequelize.sync({force:true});
 
 module.exports = User

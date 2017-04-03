@@ -13,6 +13,7 @@ var Statut = sequelize.define('statut', {
 }, {
     classMethods: {
       associate: function(User) {
+
         Statut.hasOne(User, {
           onDelete: "CASCADE",
           foreignKey: {
@@ -26,6 +27,6 @@ var Statut = sequelize.define('statut', {
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
 */
-Statut.sync({force:true});
+//sequelize.sync({force:true});
 
 module.exports = Statut
