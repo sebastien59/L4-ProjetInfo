@@ -67,7 +67,7 @@ app.filter('filterDate', function () {
     var filtered = [];
 
     if((dateDebut !== undefined && dateDebut != "") || (dateFin !== undefined && dateFin != "")){
-      if(dateDebut !== undefined && dateDebut != ""){
+      if(dateDebut !== undefined && dateDebut != "" && dateDebut != null){
         dateDebut.setHours(0);
         dateDebut.setMinutes(0);
         dateDebut.setSeconds(0);
@@ -77,7 +77,7 @@ app.filter('filterDate', function () {
         dateDebut.setTime(0);
       }
 
-      if(dateFin !== undefined && dateFin != ""){
+      if(dateFin !== undefined && dateFin != ""&& dateFin != null){
         dateFin.setHours(0);
         dateFin.setMinutes(0);
         dateFin.setSeconds(0);

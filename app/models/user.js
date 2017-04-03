@@ -20,20 +20,11 @@ var User = sequelize.define('user', {
       key: "statutid"
     }
   },
-  groupeId: {
-    type: Sequelize.INTEGER,
-    references: {
-      model: "groupes",
-      key: "groupesid"
-    }
-  }
+  groupeId: Sequelize.INTEGER
 }, {
     classMethods: {
-      associateStatut: function(Statut) {
+      associate: function(Statut) {
         User.belongsTo(Statut);
-      },
-      associateGroupe: function(Groupe){
-        User.belongsTo(Groupe);
       }
     }
   });

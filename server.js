@@ -38,10 +38,9 @@ database.sequelize
                         libelle: "Client"
               }).then(function(){
                 Statut.associate(User); // On lie les statuts au utilisateur
-                Groupe.associate(User);
+                
                 User.sync({force:true}).then(function(){
-                    User.associateStatut(Statut);
-                    User.associateGroupe(Groupe);
+                    User.associate(Statut);
                     //Creation données de test. Possibilité de les mettre ailleurs ?
                     User.create({
                       password: 'test',
@@ -67,7 +66,7 @@ database.sequelize
         });
         });
       });
-        
+
 });
 
 

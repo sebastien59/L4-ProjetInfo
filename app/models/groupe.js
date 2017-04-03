@@ -10,13 +10,6 @@ let sequelize = database.sequelize;
 // Initialisation du model
 var Groupe = sequelize.define('groupe', {
     intitule: Sequelize.STRING(40),
-  }
-,{
-    classMethods: {
-      associate: function(User) {
-        Groupe.hasMany(User);
-      }
-  }
   });
 
 /*

@@ -13,7 +13,6 @@ var Statut = sequelize.define('statut', {
 }, {
     classMethods: {
       associate: function(User) {
-
         Statut.hasOne(User, {
           onDelete: "CASCADE",
           foreignKey: {

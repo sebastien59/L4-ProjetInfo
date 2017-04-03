@@ -40,7 +40,11 @@ app.controller('historiqueCtrl', function($scope, $route){
 
   // Gestion des DatePicker
 
-  $scope.clear = function() {
+  $scope.clearDebut = function() {
+    $scope.dateDebut = null;
+  };
+
+  $scope.clearFin = function() {
     $scope.dateDebut = null;
   };
 
