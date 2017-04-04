@@ -1,5 +1,5 @@
 /*
-  Model User
+  Model Statut
 */
 
 // Initialisation des modules

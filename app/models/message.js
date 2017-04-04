@@ -1,5 +1,5 @@
 /*
-  Model User
+  Model Message
 */
 
 // Initialisation des modules
@@ -8,18 +8,17 @@ let database = require('../../config/database.js');
 let sequelize = database.sequelize;
 
 // Initialisation du model
-var Chat = sequelize.define('chat', {
-    idConseiller: Sequelize.INTEGER,
-    note:Sequelize.INTEGER,
-    idEntreprise:Sequelize.INTEGER,
-    emailClient:Sequelize.STRING(40),
-    date: Sequelize.DATE,
-    note: Sequelize.BOOLEAN
+var Message = sequelize.define('message', {
+    text: Sequelize.TEXT,
+    date:Sequelize.DATE,
+    idChat:Sequelize.INTEGER,
+    idFichier:Sequelize.INTEGER,
+    isConseiller: Sequelize.BOOLEAN
   });
 
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
 */
-//Chat.sync();
+//Message.sync();
 
-module.exports = Chat
+module.exports = Message

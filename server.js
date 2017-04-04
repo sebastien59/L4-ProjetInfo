@@ -14,10 +14,18 @@ var authMiddleware = require('./app/middleware/auth.js');
 let app=express();
 
 // Importation du model User
-let User = require('./app/models/user.js');
-let Statut = require('./app/models/statut.js');
 let Groupe = require('./app/models/groupe.js');
 let Entreprise = require('./app/models/entreprise.js');
+let Chat = require('./app/models/chat.js');
+let Appel = require('./app/models/appel.js');
+let Message = require('./app/models/message.js');
+let Fichier = require('./app/models/fichier.js');
+
+
+let User = require('./app/models/user.js');
+let Statut = require('./app/models/statut.js');
+
+//Entreprise.drop();
 
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev principalement.
@@ -25,52 +33,60 @@ let Entreprise = require('./app/models/entreprise.js');
 database.sequelize
     .query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
     .then(function(results) {
-      Groupe.sync({force:true}).then(function(){
-        console.log("Groupe")
-        Groupe.create({
-          intitule: "Retour des commandes"
-        }).then(function(){
-            Statut.sync({force:true}).then(function(){
-              console.log("Statut")
-              Statut.create({
-                libelle: "Administrateur"
-              }).then(function(){
-                Statut.create({
-                      libelle: "Conseiller"
-                }).then(function(){
-                  Statut.create({
-                            libelle: "Client"
+      Fichier.sync({force:true}).then(function(){
+        Message.sync({force:true}).then(function(){
+          Appel.sync({force:true}).then(function(){
+            Chat.sync({force:true}).then(function(){
+              Entreprise.sync({force:true}).then(function(){
+                Groupe.sync({force:true}).then(function(){
+                  Groupe.create({
+                    intitule: "Retour des commandes"
                   }).then(function(){
-                    Statut.associate(User); // On lie les statuts au utilisateur
-                    User.sync({force:true}).then(function(){
-                        console.log("User")
-                        User.associate(Statut);
-                        //Creation données de test. Possibilité de les mettre ailleurs ?
-                        User.create({
-                          password: 'test',
-                          nom: 'Administrateur',
-                          prenom: 'Test',
-                          email: "admin@admin.com",
-                          statutId:1,
-                          groupeId:1
+                      Statut.sync({force:true}).then(function(){
+                        console.log("Statut")
+                        Statut.create({
+                          libelle: "Administrateur"
                         }).then(function(){
-                          User.create({
-                            password: 'test',
-                            nom: 'Conseiller',
-                            prenom: 'Test',
-                            email: "conseiller@conseiller.com",
-                            statutId: 2,
-                            groupeId:1
+                          Statut.create({
+                                libelle: "Conseiller"
+                          }).then(function(){
+                            Statut.create({
+                                      libelle: "Client"
+                            }).then(function(){
+                              Statut.associate(User); // On lie les statuts au utilisateur
+                              User.sync({force:true}).then(function(){
+                                  console.log("User")
+                                  User.associate(Statut);
+                                  //Creation données de test. Possibilité de les mettre ailleurs ?
+                                  User.create({
+                                    password: 'test',
+                                    nom: 'Administrateur',
+                                    prenom: 'Test',
+                                    email: "admin@admin.com",
+                                    statutId:1,
+                                    groupeId:1
+                                  }).then(function(){
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller',
+                                      prenom: 'Test',
+                                      email: "conseiller@conseiller.com",
+                                      statutId: 2,
+                                      groupeId:1
+                                    });
+                                  });
+                              });
+                            });
                           });
-                        });
-                    });
+                        })
+                      });
                   });
                 });
-              })
+              });
             });
+          });
         });
       });
-
 });
 
 

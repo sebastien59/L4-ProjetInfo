@@ -1,5 +1,5 @@
 /*
-  Model User
+  Model Appel
 */
 
 // Initialisation des modules
@@ -20,6 +20,6 @@ var Appel = sequelize.define('appel', {
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
 */
-Appel.sync({force:true});
+//Appel.sync();
 
 module.exports = Appel
