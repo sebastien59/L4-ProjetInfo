@@ -142,9 +142,13 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
       });
 
       $scope.showConseillersOfGroup = function(idgroup){
+        var i;
         conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
           $scope.conseillers= reponse;
-          $scope.models.lists.Conseillers.push(reponse);    
+          for(i=0; i < reponse.length;i++){
+            $scope.models.lists.Conseillers.push(reponse[i]);
+          }
+              
         });
       }
 
