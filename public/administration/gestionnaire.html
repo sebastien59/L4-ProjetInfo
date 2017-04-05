@@ -69,9 +69,7 @@
 <div class="row marginTop30">
   <div class='col-md-2 col-md-offset-2' >
     <select class="form-control">
-        <option>groupe 1</option>
-        <option>groupe 3</option>
-        <option>groupe 2</option>
+        <option ng-repeat="group in groups" value="{{ group.id }}">{{ group.intitule }}</option>
     </select>
   </div>
 </div>

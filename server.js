@@ -40,7 +40,8 @@ database.sequelize
               Entreprise.sync({force:true}).then(function(){
                 Groupe.sync({force:true}).then(function(){
                   Groupe.create({
-                    intitule: "Retour des commandes"
+                    intitule: "Retour des commandes",
+                    entrepriseId:1
                   }).then(function(){
                       Statut.sync({force:true}).then(function(){
                         console.log("Statut")
@@ -64,7 +65,8 @@ database.sequelize
                                     prenom: 'Test',
                                     email: "admin@admin.com",
                                     statutId:1,
-                                    groupeId:1
+                                    groupeId:1,
+                                    entrepriseId:1
                                   }).then(function(){
                                     User.create({
                                       password: 'test',
@@ -72,7 +74,8 @@ database.sequelize
                                       prenom: 'Test',
                                       email: "conseiller@conseiller.com",
                                       statutId: 2,
-                                      groupeId:1
+                                      groupeId:1,
+                                      entrepriseId:1
                                     });
                                   });
                               });
@@ -121,6 +124,8 @@ app.get('/admin/historique', controller.admin);
 app.get('/conseiller', controller.conseiller);
 app.get('/conseiller/historique', controller.conseiller);
 app.get('/conseiller/chat/:id', controller.conseiller);
+app.post('/admin/showgroups',controller.showgroups);
+app.post('/admin/showConseillersgroups',controller.showUsersOfgroups);
 
 
 app.get('/views/conseiller/compte.html', (req, res) => {

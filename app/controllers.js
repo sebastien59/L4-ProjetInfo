@@ -6,7 +6,7 @@
 let Sequelize = require('sequelize');
 let Statut = require('./models/statut.js');
 let User = require('./models/user.js');
-
+let Group = require('./models/groupe.js');
 let indexController = (req, res) =>{
   //res.sendfile('./public/index.html');
   res.redirect('/login');
@@ -35,6 +35,7 @@ let authController = (req, res) =>{
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
           req.session.statut = statut.get('libelle');
+          req.session.entreprise= user.get('entrepriseId');
 
           if(req.session.statut == "Administrateur"){
             res.redirect("/admin");
@@ -69,6 +70,30 @@ let registerController = (req, res) =>{
   }
 }
 
+let ShowGroupsController = (req, res) => {
+  Group.findAll({
+    attributes: ['id','intitule'],
+    where:{
+      entrepriseId: req.session.entreprise
+    }
+  }).then(function(groups){
+   res.send(JSON.stringify(groups));
+  });
+}
+
+let ShowConseillerOfGroupController = (req, res) => {
+var groupe_selected = req.body.groupeId;  
+User.findAll({
+  attributes: ['nom','prenom'],
+    where: {
+    statutId:2,
+    groupeId:groupe_selected
+  }}).then(function(users){
+    res.send(JSON.stringify(users));
+  });
+}
+
+
 let adminController = (req, res) =>{
   res.sendfile('./public/administration/administrateur.html');
 };
@@ -87,6 +112,8 @@ let logoutController = (req, res) => {
   res.redirect("/login");
 }
 
+  
+
 // Export de chaque controller permettant de les appeller en faisant controller.index
 module.exports = {
   index : indexController,
@@ -96,5 +123,7 @@ module.exports = {
   register : registerController,
   admin : adminController,
   conseiller : conseillerController,
-  error: errorController
+  error: errorController,
+  showgroups:ShowGroupsController,
+  showUsersOfgroups:ShowConseillerOfGroupController
 }

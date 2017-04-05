@@ -14,6 +14,7 @@ var User = sequelize.define('user', {
   email: {type: Sequelize.STRING(40), unique:true},
   password: Sequelize.STRING(50),
   groupeId: Sequelize.INTEGER,
+  entrepriseId: Sequelize.INTEGER,
   statutId: {
     type: Sequelize.INTEGER,
     references: {

@@ -10,6 +10,7 @@ let sequelize = database.sequelize;
 // Initialisation du model
 var Groupe = sequelize.define('groupe', {
     intitule: Sequelize.STRING(40),
+    entrepriseId: Sequelize.INTEGER
   });
 
 /*

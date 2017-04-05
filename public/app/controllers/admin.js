@@ -84,7 +84,7 @@ app.controller('historiqueCtrl', function($scope, $route){
   };
 });
 
-app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory){
+app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory, groupFactory){
     $scope.password="";
     $scope.passwordConfirm="";
 
@@ -132,5 +132,15 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
         }
       });
     }
+
+    //$scope.showGroups = function(){
+      groupFactory.getGroups().then(function(reponse){
+
+          console.log(reponse);
+          $scope.groups = reponse;
+        
+      });
+
+    //}
 
 })
