@@ -1,12 +1,43 @@
+<h3>Mon compte</h3>
+<div class="clearfix"> </div>
+<div class="well col-lg-11 col-md-11 col-sm-11 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
+  <form name="formModification">
+    <label> Nom </label> <input type="text" class="form-control" ng-model="user.nom" disabled="true"/>
+    <label> Prenom </label> <input type="text" class="form-control" ng-model="user.prenom" disabled="true"/>
 
-  <h3>Mon compte</h3>
-  <div class="clearfix"> </div>
-    <div class="well col-lg-11 col-md-11 col-sm-11 col-lg-offset-1 col-md-offset-1 col-sm-offset-1">
-      <form>
-        <label> Nom </label> <input type="text" class="form-control" value="Mon nom" disabled="true"/>
-        <label> Prenom </label> <input type="text" class="form-control" value="Mon Prénom" disabled="true"/>
-        <label> Mot de passe </label> <input type="password" class="form-control" />
-        <label> Email </label> <input type="text" class="form-control" /><br />
-        <input type="button" class="btn btn-primary" value="Enregistrer" />
-      </form>
+    <div>
+      <div ng-class="['form-group has-feedback', { 'has-success': user.password != '' && user.passwordConfirm == user.password},
+                                    { 'has-error': user.passwordConfirm != '' && user.passwordConfirm != user.password}
+                    ]">
+
+        <label for="Password">Mot de passe</label>
+        <input type="password" class="form-control" id="password" ng-change="showError()" ng-model="user.password" placeholder="Mot de passe">
+        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="user.password != '' && user.passwordConfirm == user.password"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="user.passwordConfirm != '' && user.passwordConfirm != user.password"></span>
+        <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
+      </div>
     </div>
+    <div>
+      <div ng-class="['form-group has-feedback', { 'has-success': user.password != '' && user.passwordConfirm == user.password},
+                                    { 'has-error': user.passwordConfirm != '' && user.passwordConfirm != user.password}
+                    ]">
+        <label for="Vpassword">Vérification mot de passe</label>
+        <input type="password" class="form-control" id="vpassword" ng-change="showError()" ng-model="user.passwordConfirm" placeholder="Vérification mot de passe">
+        <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="user.password != '' && user.passwordConfirm == user.password"></span>
+        <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="user.passwordConfirm != '' && user.passwordConfirm != user.password"></span>
+        <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
+      </div>
+    </div>
+
+
+    <div ng-class="['form-group has-feedback', { 'has-success' : formModification.email.$valid && formModification.email.$viewValue != null},
+                                               { 'has-error': !formModification.email.$valid && formModification.email.$viewValue != null }]">
+      <label> Email </label>
+
+      <input type="email" class="form-control" id="email" name="email" ng-model="user.email" >
+      <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if='formModification.email.$valid && formModification.email.$viewValue != null'></span>
+      <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if='!formModification.email.$valid && formModification.email.$viewValue != null'></span>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Enregistrer" ng-click="updateUser()" />
+  </form>
+</div>

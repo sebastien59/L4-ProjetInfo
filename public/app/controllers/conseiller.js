@@ -1,6 +1,10 @@
 'use strict';
 
-app.controller('conseillerCtrl', function($scope, $location, chatsFactory){
+app.controller('conseillerCtrl', function($scope, $location, chatsFactory, userFactory){
+  $scope.user={}
+  $scope.user.password != '';
+  $scope.user.passwordConfirm != '';
+
   switch($location.path()){
     case '/conseiler/':
     case '/conseiler/moncompte':
@@ -15,6 +19,17 @@ app.controller('conseillerCtrl', function($scope, $location, chatsFactory){
   }
 
   $scope.chats=chatsFactory.get();
+
+  userFactory.get().then(function(reponse){
+    $scope.user = reponse;
+    $scope.user.password = '';
+    $scope.user.passwordConfirm = '';
+  });
+
+  $scope.updateUser = function(){
+    console.log($scope.user);
+    userFactory.update($scope.user);
+  }
 
   $scope.changeRoute=function(route){
      $location.path(route);

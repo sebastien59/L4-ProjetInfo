@@ -7,9 +7,10 @@ let Sequelize = require('sequelize');
 let Statut = require('./models/statut.js');
 let User = require('./models/user.js');
 let Group = require('./models/groupe.js');
+
 let indexController = (req, res) =>{
   //res.sendfile('./public/index.html');
-  res.redirect('/login');
+  res.redirect("/login")
 };
 
 let loginController = (req, res) =>{
@@ -19,7 +20,7 @@ let loginController = (req, res) =>{
 
 let authController = (req, res) =>{
   console.log(new Date()+" : Accès route auth");
-  console.log(req.body.login, req.body.password)
+
   User.findOne({
     where: {email:req.body.login, password:req.body.password},
     include: [{
@@ -30,7 +31,7 @@ let authController = (req, res) =>{
 
     if(user != null){
       user.getStatut().then(function(statut){
-
+          req.session.idUser = user.get("id");
           req.session.email = user.get("email");
           req.session.nom = user.get("nom");
           req.session.prenom = user.get("prenom");
@@ -82,7 +83,7 @@ let ShowGroupsController = (req, res) => {
 }
 
 let ShowConseillerOfGroupController = (req, res) => {
-var groupe_selected = req.body.groupeId;  
+var groupe_selected = req.body.groupeId;
 User.findAll({
   attributes: ['nom','prenom'],
     where: {
@@ -112,7 +113,52 @@ let logoutController = (req, res) => {
   res.redirect("/login");
 }
 
-  
+/**
+  USER
+**/
+
+let getUserController = (req, res) =>{
+  res.json({id: req.session.idUser,
+            email: req.session.email,
+            nom: req.session.nom,
+            prenom: req.session.prenom,
+            statut: req.session.statut,
+            entreprise: req.session.entreprise});
+}
+
+let updateUserController = (req, res) =>{
+  console.log("body :::: ", req.body)
+  let bool = 0;
+  if(req.body.password == ""){
+    delete req.body.password;
+  }else if (req.body.password != req.body.passwordConfirm) {
+    res.json({result : 0});
+    bool = 1;
+  }
+
+  console.log("Session :::: ", req.session)
+
+  console.log("body :::: ", req.body)
+
+  if(bool == 0){
+    delete req.body.passwordConfirm;
+    delete req.body.entreprise;
+    delete req.body.prenom;
+    delete req.body.nom;
+
+
+
+    User.update(
+      req.body,
+      {
+        where: { id: req.session.idUser }
+      }
+    ).then(function(user){
+      console.log(user)
+      res.json({result: 1});
+    });
+  }
+}
 
 // Export de chaque controller permettant de les appeller en faisant controller.index
 module.exports = {
@@ -125,5 +171,7 @@ module.exports = {
   conseiller : conseillerController,
   error: errorController,
   showgroups:ShowGroupsController,
-  showUsersOfgroups:ShowConseillerOfGroupController
+  showUsersOfgroups:ShowConseillerOfGroupController,
+  getUser: getUserController,
+  updateUser: updateUserController
 }

@@ -17,13 +17,13 @@ app.config(function ($routeProvider, $locationProvider) {
     controller: 'chatCtrl'
   })
   .when('/admin', {
-    templateUrl: '/views/admin/compte.html',
+    templateUrl: '/views/admin/compte.html'
   })
   .when('/admin/gestionnaire', {
     templateUrl: '/views/admin/gestionnaire.html',
     controller: 'gestionnaireCtrl'
   })
-    .when('/admin/historique', {
+  .when('/admin/historique', {
     templateUrl: '/views/admin/historique.html',
     controller: 'historiqueCtrl'
   })

@@ -1,6 +1,9 @@
 'use strict';
 
-app.controller('adminCtrl', function($scope, $location){
+app.controller('adminCtrl', function($scope, $location, userFactory){
+    $scope.user={}
+    $scope.user.password != '';
+    $scope.user.passwordConfirm != '';
 
     switch($location.path()){
       case '/admin/':
@@ -21,6 +24,17 @@ app.controller('adminCtrl', function($scope, $location){
        $location.path(route);
     }
 
+
+    userFactory.get().then(function(reponse){
+      $scope.user = reponse;
+      $scope.user.password = '';
+      $scope.user.passwordConfirm = '';
+    });
+
+    $scope.updateUser = function(){
+      console.log($scope.user);
+      userFactory.update($scope.user);
+    }
 
 })
 
@@ -122,7 +136,7 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
         passwordConfirm:$scope.passwordConfirm,
       }
 
-      userFactory.addUser(user).then(function(reponse){
+    userFactory.addUser(user).then(function(reponse){
         if(reponse.error !== undefined){
           $scope.error=reponse.error;
           $scope.resultat = '';
@@ -138,7 +152,7 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
 
           console.log(reponse);
           $scope.groups = reponse;
-        
+
       });
 
     //}

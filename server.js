@@ -127,6 +127,8 @@ app.get('/conseiller/chat/:id', controller.conseiller);
 app.post('/admin/showgroups',controller.showgroups);
 app.post('/admin/showConseillersgroups',controller.showUsersOfgroups);
 
+app.get("/user/get", controller.getUser);
+app.post("/user/update", controller.updateUser);
 
 app.get('/views/conseiller/compte.html', (req, res) => {
   res.sendfile('./public/conseiller/moncompte.html');
