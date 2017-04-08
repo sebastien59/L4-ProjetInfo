@@ -33,6 +33,8 @@ let Statut = require('./app/models/statut.js');
 database.sequelize
     .query('SET FOREIGN_KEY_CHECKS = 0', {raw: true})
     .then(function(results) {
+      Statut.drop();
+      User.drop();
       Fichier.sync({force:true}).then(function(){
         Message.sync({force:true}).then(function(){
           Appel.sync({force:true}).then(function(){
@@ -43,7 +45,7 @@ database.sequelize
                     intitule: "Retour des commandes",
                     entrepriseId:1
                   }).then(function(){
-                      Statut.sync({force:true}).then(function(){
+                      Statut.sync().then(function(){
                         console.log("Statut")
                         Statut.create({
                           libelle: "Administrateur"
@@ -55,7 +57,7 @@ database.sequelize
                                       libelle: "Client"
                             }).then(function(){
                               Statut.associate(User); // On lie les statuts au utilisateur
-                              User.sync({force:true}).then(function(){
+                              User.sync().then(function(){
                                   console.log("User")
                                   User.associate(Statut);
                                   //Creation données de test. Possibilité de les mettre ailleurs ?
@@ -76,6 +78,76 @@ database.sequelize
                                       statutId: 2,
                                       groupeId:1,
                                       entrepriseId:1
+                                    });
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller1',
+                                      prenom: 'Test',
+                                      email: "c1@conseiller.com",
+                                      statutId: 2,
+                                      groupeId:1,
+                                      entrepriseId:1
+                                    });
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller2',
+                                      prenom: 'Test',
+                                      email: "c2@conseiller.com",
+                                      statutId: 2,
+                                      groupeId:1,
+                                      entrepriseId:1
+                                    });
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller3',
+                                      prenom: 'Test',
+                                      email: "c3@conseiller.com",
+                                      statutId: 2,
+                                      groupeId:1,
+                                      entrepriseId:1
+                                    });
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller4',
+                                      prenom: 'Test',
+                                      email: "c4@conseiller.com",
+                                      statutId: 2,
+                                      entrepriseId:1
+                                    });
+
+                                    User.create({
+                                      password: 'test',
+                                      nom: 'Conseiller5',
+                                      prenom: 'Test',
+                                      email: "c5@conseiller.com",
+                                      statutId: 2,
+                                      entrepriseId:1
+                                    });
+
+                                    Groupe.create({
+                                      intitule: "Annulation de commandes",
+                                      entrepriseId:1
+                                    }).then(function(){
+                                      User.sync().then(function(){
+
+                                        User.create({
+                                          password: 'test',
+                                          nom: 'Conseiller6',
+                                          prenom: 'Test',
+                                          email: "c6@conseiller.com",
+                                          statutId:2,
+                                          groupeId:2,
+                                          entrepriseId:1
+                                        });
+                                        User.create({
+                                          password: 'test',
+                                          nom: 'Conseiller7',
+                                          prenom: 'Test',
+                                          email: "c7@conseiller.com",
+                                          statutId:2,
+                                          entrepriseId:1
+                                        });
+                                      });
                                     });
                                   });
                               });
