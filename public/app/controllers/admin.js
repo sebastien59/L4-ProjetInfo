@@ -98,7 +98,7 @@ app.controller('historiqueCtrl', function($scope, $route){
   };
 });
 
-app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory, groupFactory){
+app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory', 'groupFactory', 'conseillerFactory', function($scope, $location, $http, userFactory, groupFactory, conseillerFactory){
     $scope.password="";
     $scope.passwordConfirm="";
 
@@ -113,14 +113,14 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
 
     $scope.models = {
         selected: null,
-        lists: {"Groupe": [], "Conseiller": []}
+        lists: {"Conseillers": [], "Conseillers restants": []}
     };
 
     // Generate initial model
-    for (var i = 1; i <= 3; ++i) {
+    /*for (var i = 1; i <= 3; ++i) {
         $scope.models.lists.Groupe.push({label: "Conseiller " + i});
         $scope.models.lists.Conseiller.push({label: "Conseiller " + (i+4)});
-    }
+    }*/
 
     // Model to JSON for demo purpose
     $scope.$watch('models', function(model) {
@@ -147,7 +147,7 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
       });
     }
 
-    //$scope.showGroups = function(){
+
       groupFactory.getGroups().then(function(reponse){
 
           console.log(reponse);
@@ -155,6 +155,17 @@ app.controller('gestionnaireCtrl',function($scope, $location, $http, userFactory
 
       });
 
-    //}
+      $scope.showConseillersOfGroup = function(idgroup){
+        var i;
+        conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
+          $scope.conseillers= reponse;
+          for(i=0; i < reponse.length;i++){
+            $scope.models.lists.Conseillers.push(reponse[i]);
+          }
+              
+        });
+      }
 
-})
+
+
+}])

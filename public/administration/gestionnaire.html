@@ -68,7 +68,7 @@
 
 <div class="row marginTop30">
   <div class='col-md-2 col-md-offset-2' >
-    <select class="form-control">
+    <select class="form-control" ng-model="selected_group" ng-change="showConseillersOfGroup(selected_group)">
         <option ng-repeat="group in groups" value="{{ group.id }}">{{ group.intitule }}</option>
     </select>
   </div>
@@ -84,7 +84,7 @@
         dnd-selected="models.selected = item"
         ng-class="{'selected': models.selected === item}"
         >
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{item.label}}</div>
+        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{ item.nom}}</div>
         <div class="glyphicon glyphicon-trash col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
         <div class="glyphicon glyphicon-edit"></div>
     </li>

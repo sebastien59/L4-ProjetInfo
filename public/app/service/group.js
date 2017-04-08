@@ -6,7 +6,7 @@ angular.module('ServiceClient').factory('groupFactory', function($http, $q){
     get: function(){
       return factory.group;
     },
-    getGroups: function(user){
+    getGroups: function(){
       var deferred = $q.defer();
       $http.post("/admin/showgroups").then(function(reponse){
         var result = reponse.data;
