@@ -24,7 +24,6 @@ app.controller('adminCtrl', function($scope, $location, userFactory){
        $location.path(route);
     }
 
-
     userFactory.get().then(function(reponse){
       $scope.user = reponse;
       $scope.user.password = '';
@@ -32,9 +31,16 @@ app.controller('adminCtrl', function($scope, $location, userFactory){
     });
 
     $scope.updateUser = function(){
-      console.log($scope.user);
-      userFactory.update($scope.user);
+
+      userFactory.update($scope.user).then(function(result){
+        $scope.message=(result.result == 1)? "Votre a bien été modifié !" : "Une erreur s'est produite!";
+      })
     }
+
+    $scope.showError= function(){
+        return ($scope.user.passwordConfirm != '' && $scope.user.passwordConfirm != $scope.user.password);
+    }
+
 
 })
 
@@ -136,7 +142,7 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
         passwordConfirm:$scope.passwordConfirm,
       }
 
-    userFactory.addUser(user).then(function(reponse){
+      userFactory.addUser(user).then(function(reponse){
         if(reponse.error !== undefined){
           $scope.error=reponse.error;
           $scope.resultat = '';
@@ -148,24 +154,25 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
     }
 
 
-      groupFactory.getGroups().then(function(reponse){
+    groupFactory.getGroups().then(function(reponse){
+        $scope.groups = reponse;
+    });
 
-          console.log(reponse);
-          $scope.groups = reponse;
+    $scope.showConseillersOfGroup = function(idgroup){
+      var i;
+      conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
+        $scope.conseillers= reponse;
+        for(i=0; i < reponse.length;i++){
+          $scope.models.lists.Conseillers.push(reponse[i]);
+        }
 
       });
+    }
 
-      $scope.showConseillersOfGroup = function(idgroup){
-        var i;
-        conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
-          $scope.conseillers= reponse;
-          for(i=0; i < reponse.length;i++){
-            $scope.models.lists.Conseillers.push(reponse[i]);
-          }
-              
-        });
-      }
-
-
-
+    $scope.CreerGroupe = function(nomGroupe){
+      groupFactory.create(nomGroupe).then(function(result){
+        $scope.message=(result.result == 1)? true:false;
+        $scope.groups = groupFactory.get();
+      })
+    }
 }])

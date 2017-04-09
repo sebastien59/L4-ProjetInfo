@@ -33,7 +33,6 @@
     <div ng-class="['form-group has-feedback', { 'has-success' : formModification.email.$valid && formModification.email.$viewValue != null},
                                                { 'has-error': !formModification.email.$valid && formModification.email.$viewValue != null }]">
       <label> Email </label>
-
       <input type="email" class="form-control" id="email" name="email" ng-model="user.email" >
       <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if='formModification.email.$valid && formModification.email.$viewValue != null'></span>
       <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if='!formModification.email.$valid && formModification.email.$viewValue != null'></span>

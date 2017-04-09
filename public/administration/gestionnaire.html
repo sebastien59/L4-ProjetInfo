@@ -67,35 +67,38 @@
 
 
 <div class="row marginTop30">
-  <div class='col-md-2 col-md-offset-2' >
+  <div class='col-md-3 col-md-offset-2' >
     <select class="form-control" ng-model="selected_group" ng-change="showConseillersOfGroup(selected_group)">
+      <option value="">Sélectionner un groupe</option>
         <option ng-repeat="group in groups" value="{{ group.id }}">{{ group.intitule }}</option>
     </select>
   </div>
 </div>
-<div class="groupList col-lg-3 col-md-4 col-sm-6 col-lg-offset-2" ng-repeat="(listName, list) in models.lists">
-  <h2>{{ listName }}</h2>
+<div class="row">
+  <div class="groupList col-lg-4 col-md-4 col-sm-6 col-lg-offset-2" ng-repeat="(listName, list) in models.lists">
+    <h2>{{ listName }}</h2>
 
-  <ul dnd-list="list">
-    <li ng-repeat="item in list"
-        dnd-draggable="item"
-        dnd-moved="list.splice($index, 1)"
-        dnd-effect-allowed="move"
-        dnd-selected="models.selected = item"
-        ng-class="{'selected': models.selected === item}"
-        >
-        <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{ item.nom}}</div>
-        <div class="glyphicon glyphicon-trash col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-        <div class="glyphicon glyphicon-edit"></div>
-    </li>
-  </ul>
+    <ul dnd-list="list" class="well" style="padding-left: 15px; margin-bottom:10px;">
+      <li ng-repeat="item in list"
+          dnd-draggable="item"
+          dnd-moved="list.splice($index, 1)"
+          dnd-effect-allowed="move"
+          dnd-selected="models.selected = item"
+          ng-class="{'selected': models.selected === item}"
+          >
+          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{ item.nom}}</div>
+          <div class="glyphicon glyphicon-trash col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
+          <div class="glyphicon glyphicon-edit"></div>
+      </li>
+    </ul>
   </div>
+</div>
 
 <div class="row">
-<div class=" col-md-3 col-lg-offset-2">
-  <div class="col-md-9">
-    <input class="form-control" type="text" name="nouveaugroupe" placeholder="nom du groupe à créer.." />
+  <div class=" col-md-3 col-lg-offset-2">
+    <div class="col-md-9">
+      <input class="form-control" type="text" name="nouveaugroupe" ng-model="nomGroupe" placeholder="Nom du groupe à créer.." />
+    </div>
+    <button class="btn btn-primary" ng-click="CreerGroupe(nomGroupe)">+</button>
   </div>
-  <button class="btn btn-primary">+</button>
-</div>
 </div>

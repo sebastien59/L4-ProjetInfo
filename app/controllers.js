@@ -10,7 +10,7 @@ let Group = require('./models/groupe.js');
 
 let indexController = (req, res) =>{
   //res.sendfile('./public/index.html');
-  res.redirect("/login")
+  res.redirect("/login");
 };
 
 let loginController = (req, res) =>{
@@ -71,6 +71,10 @@ let registerController = (req, res) =>{
   }
 }
 
+let adminController = (req, res) =>{
+  res.sendfile('./public/administration/administrateur.html');
+};
+
 let ShowGroupsController = (req, res) => {
   Group.findAll({
     attributes: ['id','intitule'],
@@ -83,20 +87,32 @@ let ShowGroupsController = (req, res) => {
 }
 
 let ShowConseillerOfGroupController = (req, res) => {
-var groupe_selected = req.body.groupeId;
-User.findAll({
-  attributes: ['nom','prenom'],
-    where: {
-    statutId:2,
-    groupeId:groupe_selected
-  }}).then(function(users){
-    res.send(JSON.stringify(users));
-  });
+  var groupe_selected = req.body.groupeId;
+  User.findAll({
+    attributes: ['nom','prenom'],
+      where: {
+      statutId:2,
+      groupeId:groupe_selected
+    }
+  }).then(function(users){
+      res.send(JSON.stringify(users));
+    });
 }
 
+let addGroupController = (req, res) => {
+  console.log(req.body);
+  if(req.body.nomGroupe != ""){
+    Group.create({
+      intitule: req.body.nomGroupe,
+      entrepriseId: req.session.entreprise
+    }).then(function(groupe){
+        console.log(groupe)
 
-let adminController = (req, res) =>{
-  res.sendfile('./public/administration/administrateur.html');
+        res.json({id : groupe.get('id'), intitule: groupe.get("intitule")});
+    })
+  }else{
+    res.json({result : 0});
+  }
 };
 
 let conseillerController = (req, res) =>{
@@ -172,6 +188,7 @@ module.exports = {
   error: errorController,
   showgroups:ShowGroupsController,
   showUsersOfgroups:ShowConseillerOfGroupController,
+  addgroup: addGroupController,
   getUser: getUserController,
   updateUser: updateUserController
 }
