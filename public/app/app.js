@@ -119,3 +119,19 @@ app.filter('filterNote', function () {
     return items;
   };
 });
+
+app.filter('filterType', function () {
+  return function (items, type) {
+    var filtered = [];
+
+    if(type != ""){
+      for (var i = 0; i < items.length; i++){
+        if(items[i].type == type){
+          filtered.push(items[i]);
+        }
+      }
+      return filtered;
+    }
+    return items;
+  };
+});

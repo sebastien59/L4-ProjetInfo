@@ -3,10 +3,16 @@
   Créer un dossier controller et les importer dans celui ci afin de rendre le tout plus claire si nous avons de grand (ou beaucoup de) controller ?
 
 */
+let database = require('../config/database.js');
 let Sequelize = require('sequelize');
-let Statut = require('./models/statut.js');
-let User = require('./models/user.js');
 let Group = require('./models/groupe.js');
+let Entreprise = require('./models/entreprise.js');
+let Chat = require('./models/chat.js');
+let Appel = require('./models/appel.js');
+let Message = require('./models/message.js');
+let Fichier = require('./models/fichier.js');
+let User = require('./models/user.js');
+let Statut = require('./models/statut.js');
 
 let indexController = (req, res) =>{
   //res.sendfile('./public/index.html');
@@ -129,6 +135,37 @@ let logoutController = (req, res) => {
   res.redirect("/login");
 }
 
+
+let getHistorique = (req, res) => {
+  database.sequelize
+      .query('SELECT * FROM chats c JOIN users u ON u.id=c.idConseiller', { model: Chat })
+      .then(function(chats){
+        chats = chats.map(function(obj){
+          return obj.get("getJson");
+        });
+
+        database.sequelize
+            .query('SELECT * FROM appels a JOIN users u ON u.id=a.idConseiller', { model: Appel })
+            .then(function(appels){
+                appels = appels.map(function(obj){
+                  console.log(obj.get("getJson"))
+                  return obj.get("getJson");
+                });
+              res.json(chats.concat(appels));
+            });
+      });
+}
+
+let getConseillers = (req, res) => {
+  User.findAll({
+    where: {
+      statutId:2,
+      entrepriseId:req.session.entreprise
+    }
+  }).then(function(users){
+    res.json(users);
+  });
+}
 /**
   USER
 **/
@@ -190,5 +227,7 @@ module.exports = {
   showUsersOfgroups:ShowConseillerOfGroupController,
   addgroup: addGroupController,
   getUser: getUserController,
-  updateUser: updateUserController
+  updateUser: updateUserController,
+  historique: getHistorique,
+  getConseillers: getConseillers
 }

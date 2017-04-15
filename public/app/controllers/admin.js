@@ -44,20 +44,28 @@ app.controller('adminCtrl', function($scope, $location, userFactory){
 
 })
 
-app.controller('historiqueCtrl', function($scope, $route){
+app.controller('historiqueCtrl', function($scope, $route, historiqueFactory, conseillerFactory){
   $scope.idConseiller="all";
 
-  $scope.resultats = [
-    {id:0, idConseiller: 0, nom:"Jean", prenom:"Jean", date: new Date('2017/03/01'), duree: '20 min', note : 7},
-    {id:1, idConseiller: 1, nom:"Jean", prenom:"Baptiste", date: new Date('2017/03/01'), duree: '17 min', note : 5},
-    {id:2, idConseiller: 2, nom:"Jean", prenom:"Pierre", date: new Date('2017/03/02'), duree: '15 min', note : 2},
-    {id:3, idConseiller: 0, nom:"Jean", prenom:"Jean", date: new Date('2017/03/08'), duree: '15 min', note : 2},
-    {id:4, idConseiller: 2, nom:"Jean", prenom:"Pierre", date: new Date('2017/03/09'), duree: '15 min', note : 2},
-  ]
+  /*$scope.resultats = [
+    {id:0, idConseiller: 0, type:"audio", nom:"Jean", prenom:"Jean", date: new Date('2017/03/01'), duree: '20 min', note : 7},
+    {id:1, idConseiller: 1, type:"texte", nom:"Jean", prenom:"Baptiste", date: new Date('2017/03/01'), duree: '17 min', note : 5},
+    {id:2, idConseiller: 2, type:"audio", nom:"Jean", prenom:"Pierre", date: new Date('2017/03/02'), duree: '15 min', note : 2},
+    {id:3, idConseiller: 0, type:"texte", nom:"Jean", prenom:"Jean", date: new Date('2017/03/08'), duree: '15 min', note : 2},
+    {id:4, idConseiller: 2, type:"texte", nom:"Jean", prenom:"Pierre", date: new Date('2017/03/09'), duree: '15 min', note : 2},
+  ]*/
+
+  conseillerFactory.getConseillers().then(function(res){
+    $scope.conseillers = res;
+  });
+
+  historiqueFactory.getHistorique().then(function(res){
+    $scope.resultats = res;
+  });
 
   $scope.noteMin=0;
   $scope.noteMax=10;
-
+  $scope.type="";
   // Gestion des DatePicker
 
   $scope.clearDebut = function() {
@@ -72,7 +80,6 @@ app.controller('historiqueCtrl', function($scope, $route){
     minDate: new Date(),
     showWeeks: true
   };
-
 
   // Disable weekend selection
   function disabled(data) {

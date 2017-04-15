@@ -8,13 +8,11 @@
           <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
             <select type="text" class="form-control" multiple ng-model="idConseiller">
                   <option value="all">Tous</option>
-                  <option value="0">Jean Jean</option>
-                  <option value="1">Baptiste Jean</option>
-                  <option value="2">Pierre Jean</option>
+                  <option ng-repeat="conseiller in conseillers" value="{{ conseiller.id }}">{{ conseiller.nom}} {{ conseiller.prenom }}</option>
               </select>
           </div>
         </label>
-        <div class="col-lg-4 col-md-4 col-sm-6 col-xs-10">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-xs-10">
           <label>
             <div class="col-lg-4 col-md-4 col-sm-5 col-xs-5">Date Debut:</div>
             <div class="col-lg-8 col-md-8 col-sm-7 col-xs-7">
@@ -38,7 +36,7 @@
             </div>
           </label>
         </div>
-        <div class="col-lg-4 col-md-4 col-sm-8 col-xs-10">
+        <div class="col-lg-3 col-md-4 col-sm-8 col-xs-10">
           <label>
             <div class="col-lg-7 col-md-6 col-sm-7 col-xs-7">Note Min:</div>
             <div class="col-lg-5 col-md-6 col-sm-5 col-xs-5">
@@ -56,6 +54,19 @@
             </div>
           </label>
         </div>
+        <div class="col-lg-2 col-xs-12">
+          <label>
+            <div class="col-lg-3 col-xs-12">Type:</div>
+            <div class="clearfix"></div>
+            <div class="col-lg-12 col-xs-12">
+              <select class="form-control" ng-model="type">
+                <option value="">Sélectionner</option>
+                <option value="audio">Audio</option>
+                <option value="texte">Textuel</option>
+              </select>
+            </div>
+          </label>
+        </div>
         <div class="clearfix"></div>
       </div>
     </div>
@@ -66,6 +77,7 @@
                 <th>#</th>
                 <th>Nom</th>
                 <th>Date</th>
+                <th>Type</th>
                 <th>Durée</th>
                 <th>Note (/10)</th>
               </thead>
@@ -73,10 +85,11 @@
                 <tr ng-class="[{'danger': resultat.note < 5},
                               {'warning': resultat.note == 5},
                               {'success': resultat.note > 5}]"
-                    ng-repeat="resultat in resultats | filterConseiller:idConseiller | filterDate:dateDebut:dateFin | filterNote:noteMin:noteMax">
+                    ng-repeat="resultat in resultats | orderBy:'-date' | filterConseiller:idConseiller | filterDate:dateDebut:dateFin | filterNote:noteMin:noteMax | filterType:type">
                   <td>{{ resultat.id }}</td>
-                  <td>{{ resultat.prenom }} {{ resultat.nom }}</td>
+                  <td>{{ resultat.Conseiller.prenom }} {{ resultat.Conseiller.nom }}</td>
                   <td>{{ resultat.date | date : "dd/MM/yyyy" }}</td>
+                  <td>{{ resultat.type }}</td>
                   <td>{{ resultat.duree }}</td>
                   <td>{{ resultat.note }}</td>
                 </tr>

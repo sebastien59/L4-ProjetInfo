@@ -6,6 +6,7 @@
 let Sequelize = require('sequelize');
 let database = require('../../config/database.js');
 let sequelize = database.sequelize;
+let moment = require('moment');
 
 // Initialisation du model
 var Chat = sequelize.define('chat', {
@@ -13,9 +14,35 @@ var Chat = sequelize.define('chat', {
     note:Sequelize.INTEGER,
     idEntreprise:Sequelize.INTEGER,
     emailClient:Sequelize.STRING(40),
-    date: Sequelize.DATE,
-    note: Sequelize.BOOLEAN
-  });
+    dateDebut: Sequelize.DATE,
+    dateFin: Sequelize.DATE,
+    fini: Sequelize.BOOLEAN
+  },{
+      getterMethods : {
+        getJson : function(){
+          var startDate = moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss');
+          var endDate = moment(this.dateFin, 'YYYY-M-DD HH:mm:ss');
+          var diff = endDate.diff(startDate, 'minutes');
+          return {
+            id: "t"+this.id,
+            Conseiller: {
+              id: this.idConseiller,
+              nom: this.get('nom'),
+              prenom: this.get('prenom'),
+              email: this.get('email')
+            },
+            note:this.note,
+            idEntreprise:this.idEntreprise,
+            emailClient:this.emailClient,
+            date: this.dateDebut,
+            duree: diff,
+            fini: this.fini,
+            type: "texte",
+          }
+        }
+      }
+    }
+  );
 
 /*
   On force la suppression afin de créer la table à chaque lancement de l'application. Utile en dev uniquement.
