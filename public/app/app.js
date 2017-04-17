@@ -88,9 +88,6 @@ app.filter('filterDate', function () {
       }
 
       for (var i = 0; i < items.length; i++) {
-        console.log(items[i].date, dateDebut);
-        console.log(new Date(items[i].date));
-        console.log(new Date(items[i].date) >= dateDebut);
         if(new Date(items[i].date) >= dateDebut && new Date(items[i].date) <= dateFin){
           filtered.push(items[i]);
         }

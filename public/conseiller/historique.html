@@ -80,7 +80,7 @@
                     ng-repeat="resultat in resultats | orderBy:'-date' | filterDate:dateDebut:dateFin | filterNote:noteMin:noteMax | filterType:type">
 
                   <td>{{ resultat.id }}</td>
-                  <td>{{ resultat.date | date : "DD/MM/yyyy" }}</td>
+                  <td>{{ resultat.date | date : "dd/mm/yyyy" }}</td>
                   <td>{{ resultat.duree }}</td>
                   <td>{{ resultat.note }}</td>
                 </tr>

@@ -36,7 +36,7 @@ var Appel = sequelize.define('appel', {
           note:this.note,
           idEntreprise:this.idEntreprise,
           emailClient:this.emailClient,
-          date: moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss').format("DD/MM/YYYY"),
+          date: new Date(moment(this.dateDebut, 'YYYY-MM-DD HH:mm:ss').format("YYYY/MM/DD")),
           duree: diff,
           fini: this.fini,
           type: "audio",
