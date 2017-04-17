@@ -376,12 +376,13 @@ app.get('/admin/gestionnaire', controller.admin);
 app.get('/admin/historique', controller.admin);
 app.get('/conseiller', controller.conseiller);
 app.get('/conseiller/historique', controller.conseiller);
+app.get('/conseiller/getUserHistorique', controller.getUserHistorique);
 app.get('/conseiller/chat/:id', controller.conseiller);
 app.post('/admin/showgroups',controller.showgroups);
 app.post('/admin/showConseillersgroups',controller.showUsersOfgroups);
 app.post('/admin/addgroup',controller.addgroup);
 app.get('/admin/getHistorique', controller.historique);
-app.get('/admin/getConseillers', controller.getConseillers);
+app.get('/getConseillers', controller.getConseillers);
 app.get("/user/get", controller.getUser);
 app.post("/user/update", controller.updateUser);
 

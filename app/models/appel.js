@@ -20,9 +20,11 @@ var Appel = sequelize.define('appel', {
 },{
     getterMethods : {
       getJson : function(){
-        var startDate = moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss');
-        var endDate = moment(this.dateFin, 'YYYY-M-DD HH:mm:ss');
+        var startDate = moment(this.dateDebut, 'YYYY-MM-DD HH:mm:ss');
+        var endDate = moment(this.dateFin, 'YYYY-MM-DD HH:mm:ss');
         var diff = endDate.diff(startDate, 'minutes');
+
+        var dateD =new Date(this.dateDebut)
         return {
           id: "a"+this.id,
           Conseiller: {
@@ -34,7 +36,7 @@ var Appel = sequelize.define('appel', {
           note:this.note,
           idEntreprise:this.idEntreprise,
           emailClient:this.emailClient,
-          date: this.dateDebut,
+          date: moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss').format("DD/MM/YYYY"),
           duree: diff,
           fini: this.fini,
           type: "audio",

@@ -6,7 +6,7 @@ angular.module('ServiceClient').factory('conseillerFactory', function($http, $q)
     },
     getConseillers: function(){
       var deferred = $q.defer();
-      $http.get("/admin/getConseillers").then(function(reponse){
+      $http.get("/getConseillers").then(function(reponse){
         var result = reponse.data;
         factory.conseillers=result;
         deferred.resolve(result);

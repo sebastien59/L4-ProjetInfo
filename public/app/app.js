@@ -50,7 +50,7 @@ app.controller('errorCtrl', function($scope, $location, $window){
 app.filter('filterConseiller', function () {
   return function (items, idSelected) {
     var filtered = [];
-    if(idSelected !== undefined && idSelected.indexOf("all") == -1){
+    if(idSelected !== undefined && idSelected.indexOf("all") == -1 && items !== undefined ){
       for (var i = 0; i < items.length; i++) {
         if(idSelected.indexOf(items[i].idConseiller.toString()) != -1){
           filtered.push(items[i]);
@@ -77,6 +77,7 @@ app.filter('filterDate', function () {
         dateDebut.setTime(0);
       }
 
+
       if(dateFin !== undefined && dateFin != ""&& dateFin != null){
         dateFin.setHours(0);
         dateFin.setMinutes(0);
@@ -87,7 +88,10 @@ app.filter('filterDate', function () {
       }
 
       for (var i = 0; i < items.length; i++) {
-        if(items[i].date >= dateDebut && items[i].date <= dateFin){
+        console.log(items[i].date, dateDebut);
+        console.log(new Date(items[i].date));
+        console.log(new Date(items[i].date) >= dateDebut);
+        if(new Date(items[i].date) >= dateDebut && new Date(items[i].date) <= dateFin){
           filtered.push(items[i]);
         }
       }
@@ -101,7 +105,7 @@ app.filter('filterNote', function () {
   return function (items, noteMin, noteMax) {
     var filtered = [];
 
-    if(noteMin !== undefined || noteMax !== undefined){
+    if((noteMin !== undefined || noteMax !== undefined) && items !== undefined ){
       for (var i = 0; i < items.length; i++) {
         if(noteMin === undefined){
           noteMin = 0;
@@ -124,7 +128,7 @@ app.filter('filterType', function () {
   return function (items, type) {
     var filtered = [];
 
-    if(type != ""){
+    if(type != "" && items !== undefined){
       for (var i = 0; i < items.length; i++){
         if(items[i].type == type){
           filtered.push(items[i]);

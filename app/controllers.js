@@ -156,6 +156,30 @@ let getHistorique = (req, res) => {
       });
 }
 
+let getUserHistorique = (req, res) => {
+  database.sequelize
+      .query('SELECT * FROM chats c JOIN users u ON u.id=c.idConseiller WHERE u.id = :userId' , {
+        replacements: { userId: req.session.idUser},
+        model: Chat })
+      .then(function(chats){
+        chats = chats.map(function(obj){
+          return obj.get("getJson");
+        });
+
+        database.sequelize
+            .query('SELECT * FROM appels a JOIN users u ON u.id=a.idConseiller WHERE u.id = :userId', {
+              replacements: { userId: req.session.idUser},
+              model: Appel })
+            .then(function(appels){
+                appels = appels.map(function(obj){
+                  return obj.get("getJson");
+                });
+              console.log(chats.concat(appels));
+              res.json(chats.concat(appels));
+            });
+      });
+}
+
 let getConseillers = (req, res) => {
   User.findAll({
     where: {
@@ -229,5 +253,6 @@ module.exports = {
   getUser: getUserController,
   updateUser: updateUserController,
   historique: getHistorique,
-  getConseillers: getConseillers
+  getConseillers: getConseillers,
+  getUserHistorique:getUserHistorique
 }

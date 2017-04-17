@@ -31,7 +31,6 @@ app.controller('adminCtrl', function($scope, $location, userFactory){
     });
 
     $scope.updateUser = function(){
-
       userFactory.update($scope.user).then(function(result){
         $scope.message=(result.result == 1)? "Votre a bien été modifié !" : "Une erreur s'est produite!";
       })

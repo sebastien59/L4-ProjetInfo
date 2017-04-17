@@ -23,6 +23,8 @@ var Chat = sequelize.define('chat', {
           var startDate = moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss');
           var endDate = moment(this.dateFin, 'YYYY-M-DD HH:mm:ss');
           var diff = endDate.diff(startDate, 'minutes');
+
+          var dateD =new Date(this.dateDebut)
           return {
             id: "t"+this.id,
             Conseiller: {
@@ -34,7 +36,7 @@ var Chat = sequelize.define('chat', {
             note:this.note,
             idEntreprise:this.idEntreprise,
             emailClient:this.emailClient,
-            date: this.dateDebut,
+            date: moment(this.dateDebut, 'YYYY-M-DD HH:mm:ss').format("DD/MM/YYYY"),
             duree: diff,
             fini: this.fini,
             type: "texte",
