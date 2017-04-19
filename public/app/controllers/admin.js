@@ -138,6 +138,7 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
 
     // Model to JSON for demo purpose
     $scope.$watch('models', function(model) {
+        console.log(model);
         $scope.modelAsJson = angular.toJson(model, true);
     }, true);
 

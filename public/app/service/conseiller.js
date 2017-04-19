@@ -31,7 +31,15 @@ angular.module('ServiceClient').factory('conseillerFactory', function($http, $q)
         factory.conseillers=result;
         deferred.resolve(result);
       });
+      return deferred.promise;
+    },
 
+    addConseillerGroupe: function(){
+      var deferred = $q.defer();
+      $http.get("/admin/addConseillerAuGroupe",{"groupeId":idgroup}).then(function(reponse){
+        var result = reponse.data;
+        deferred.resolve(result);
+      });
       return deferred.promise;
     }
 
