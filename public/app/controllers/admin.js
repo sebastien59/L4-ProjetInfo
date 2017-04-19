@@ -123,6 +123,8 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
         return $scope.formInscription.email.$valid == false || $scope.showError() == true || $scope.password == "" || $scope.passwordConfirm == "" || $scope.email == "" || $scope.nom == "" || $scope.prenom == "";
       }
 
+
+
     $scope.models = {
         selected: null,
         lists: {"Conseillers du groupe": [], "Conseillers restants": []}

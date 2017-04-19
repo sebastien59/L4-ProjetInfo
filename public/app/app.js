@@ -49,10 +49,12 @@ app.controller('errorCtrl', function($scope, $location, $window){
 /* FILTRES */
 app.filter('filterConseiller', function () {
   return function (items, idSelected) {
+    console.log(items);
     var filtered = [];
     if(idSelected !== undefined && idSelected.indexOf("all") == -1 && items !== undefined ){
       for (var i = 0; i < items.length; i++) {
-        if(idSelected.indexOf(items[i].idConseiller.toString()) != -1){
+        console.log(items[i].Conseiller.id, idSelected);
+        if(idSelected.indexOf(items[i].Conseiller.id.toString()) != -1){
           filtered.push(items[i]);
         }
       };

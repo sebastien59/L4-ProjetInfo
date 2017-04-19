@@ -32,25 +32,25 @@
     </div>
     <div class="row">
         <div class="col-md-offset-2 col-md-3">
-          <div ng-class="['form-group has-feedback', { 'has-success': user.password != '' && user.passwordConfirm == password},
-                                        { 'has-error': user.passwordConfirm != '' && user.passwordConfirm != password}
+          <div ng-class="['form-group has-feedback', { 'has-success': password != '' && passwordConfirm == password},
+                                        { 'has-error': passwordConfirm != '' && passwordConfirm != password}
                         ]">
 
             <label for="Password">Mot de passe</label>
-            <input type="password" class="form-control" id="password" ng-change="showError()" ng-model="user.password" placeholder="Mot de passe">
-            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="user.password != '' && user.passwordConfirm == user.password"></span>
-            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="user.passwordConfirm != '' && user.passwordConfirm != user.password"></span>
+            <input type="password" class="form-control" id="password" ng-change="showError()" ng-model="password" placeholder="Mot de passe">
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="password != '' && passwordConfirm == password"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="passwordConfirm != '' && passwordConfirm != password"></span>
             <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
           </div>
         </div>
         <div class="col-md-offset-1 col-md-3">
-          <div ng-class="['form-group has-feedback', { 'has-success': user.password != '' && user.passwordConfirm == password},
-                                        { 'has-error': user.passwordConfirm != '' && user.passwordConfirm != password}
+          <div ng-class="['form-group has-feedback', { 'has-success': password != '' && passwordConfirm == password},
+                                        { 'has-error': passwordConfirm != '' && passwordConfirm != password}
                         ]">
             <label for="Vpassword">Vérification mot de passe</label>
-            <input type="password" class="form-control" id="vpassword" ng-change="showError()" ng-model="user.passwordConfirm" placeholder="Vérification mot de passe">
-            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="user.password != '' && user.passwordConfirm == user.password"></span>
-            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="user.passwordConfirm != '' && user.passwordConfirm != user.password"></span>
+            <input type="password" class="form-control" id="vpassword" ng-change="showError()" ng-model="passwordConfirm" placeholder="Vérification mot de passe">
+            <span class="glyphicon glyphicon-ok form-control-feedback" aria-hidden="true" ng-if="password != '' && passwordConfirm == password"></span>
+            <span class="glyphicon glyphicon-remove form-control-feedback" aria-hidden="true" ng-if="passwordConfirm != '' && passwordConfirm != password"></span>
             <span ng-show='showError()' class="help-block">Les deux mots de passe sont différents</span>
           </div>
         </div>
