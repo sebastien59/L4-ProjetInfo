@@ -125,7 +125,7 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
 
     $scope.models = {
         selected: null,
-        lists: {"Conseillers": [], "Conseillers restants": []}
+        lists: {"Conseillers du groupe": [], "Conseillers restants": []}
     };
 
     // Generate initial model
@@ -168,13 +168,25 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
       var i;
       conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
         $scope.conseillers= reponse;
+        $scope.models.lists["Conseillers du groupe"] = [];
         for(i=0; i < reponse.length;i++){
-          $scope.models.lists.Conseillers.push(reponse[i]);
+          $scope.models.lists["Conseillers du groupe"].push(reponse[i]);
         }
 
       });
     }
 
+    //$scope.showConseillersRestants = function(idgroup){
+      var i;
+      conseillerFactory.getConseillersRestants().then(function(reponse){
+        $scope.conseillers= reponse;
+        $scope.models.lists["Conseillers restants"] = [];
+        for(i=0; i < reponse.length;i++){
+          $scope.models.lists["Conseillers restants"].push(reponse[i]);
+        }
+
+      });
+    //}
     $scope.CreerGroupe = function(nomGroupe){
       groupFactory.create(nomGroupe).then(function(result){
         $scope.message=(result.result == 1)? true:false;

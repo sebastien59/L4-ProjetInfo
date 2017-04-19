@@ -23,7 +23,19 @@ angular.module('ServiceClient').factory('conseillerFactory', function($http, $q)
       });
 
       return deferred.promise;
+    },
+    getConseillersRestants: function(){
+      var deferred = $q.defer();
+      $http.get("/admin/showConseillersRestants").then(function(reponse){
+        var result = reponse.data;
+        factory.conseillers=result;
+        deferred.resolve(result);
+      });
+
+      return deferred.promise;
     }
+
+
   };
 
   return factory;

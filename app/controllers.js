@@ -105,6 +105,20 @@ let ShowConseillerOfGroupController = (req, res) => {
     });
 }
 
+let showUsersRestantsController = (req, res) => {
+
+  User.findAll({
+    attributes: ['nom','prenom'],
+      where: {
+      statutId:2,
+      groupeId:null
+    }
+  }).then(function(users){
+    console.log(users);
+      res.send(JSON.stringify(users));
+    });
+  }
+
 let addGroupController = (req, res) => {
   console.log(req.body);
   if(req.body.nomGroupe != ""){
@@ -249,6 +263,7 @@ module.exports = {
   error: errorController,
   showgroups:ShowGroupsController,
   showUsersOfgroups:ShowConseillerOfGroupController,
+  showUsersRestants : showUsersRestantsController,
   addgroup: addGroupController,
   getUser: getUserController,
   updateUser: updateUserController,

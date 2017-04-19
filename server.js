@@ -380,6 +380,7 @@ app.get('/conseiller/getUserHistorique', controller.getUserHistorique);
 app.get('/conseiller/chat/:id', controller.conseiller);
 app.post('/admin/showgroups',controller.showgroups);
 app.post('/admin/showConseillersgroups',controller.showUsersOfgroups);
+app.get('/admin/showConseillersRestants',controller.showUsersRestants);
 app.post('/admin/addgroup',controller.addgroup);
 app.get('/admin/getHistorique', controller.historique);
 app.get('/getConseillers', controller.getConseillers);
