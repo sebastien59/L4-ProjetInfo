@@ -123,24 +123,64 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
         return $scope.formInscription.email.$valid == false || $scope.showError() == true || $scope.password == "" || $scope.passwordConfirm == "" || $scope.email == "" || $scope.nom == "" || $scope.prenom == "";
       }
 
+      $scope.models = [
+           {listName: "Conseillers du groupe", items: [], dragging: false},
+           {listName: "Conseillers restants", items: [], dragging: false}
+         ];
 
+         /**
+          * dnd-dragging determines what data gets serialized and send to the receiver
+          * of the drop. While we usually just send a single object, we send the array
+          * of all selected items here.
+          */
+         $scope.getSelectedItemsIncluding = function(list, item) {
+           item.selected = true;
+           return list.items.filter(function(item) { return item.selected; });
+         };
 
-    $scope.models = {
-        selected: null,
-        lists: {"Conseillers du groupe": [], "Conseillers restants": []}
-    };
+         /**
+          * We set the list into dragging state, meaning the items that are being
+          * dragged are hidden. We also use the HTML5 API directly to set a custom
+          * image, since otherwise only the one item that the user actually dragged
+          * would be shown as drag image.
+          */
+         $scope.onDragstart = function(list, event) {
+            list.dragging = true;
+         };
 
-    // Generate initial model
-    /*for (var i = 1; i <= 3; ++i) {
-        $scope.models.lists.Groupe.push({label: "Conseiller " + i});
-        $scope.models.lists.Conseiller.push({label: "Conseiller " + (i+4)});
-    }*/
+         /**
+          * In the dnd-drop callback, we now have to handle the data array that we
+          * sent above. We handle the insertion into the list ourselves. By returning
+          * true, the dnd-list directive won't do the insertion itself.
+          */
+         $scope.onDrop = function(listname, list, items, index) {
+           angular.forEach(items, function(item) { item.selected = false; });
+           list.items = list.items.slice(0, index)
+                       .concat(items)
+                       .concat(list.items.slice(index));
+          console.log(items)
+           return true;
+         }
 
-    // Model to JSON for demo purpose
-    $scope.$watch('models', function(model) {
-        console.log(model);
-        $scope.modelAsJson = angular.toJson(model, true);
-    }, true);
+         /**
+          * Last but not least, we have to remove the previously dragged items in the
+          * dnd-moved callback.
+          */
+         $scope.onMoved = function(list) {
+           list.items = list.items.filter(function(item) { return !item.selected; });
+         };
+
+         // Generate the initial model
+        /* angular.forEach($scope.models, function(list) {
+           for (var i = 1; i <= 4; ++i) {
+               list.items.push({label: "Item " + list.listName + i});
+           }
+         });*/
+
+         // Model to JSON for demo purpose
+         $scope.$watch('models', function(model) {
+             $scope.modelAsJson = angular.toJson(model, true);
+         }, true);
 
     $scope.registerConseiller = function(){
       let user = {
@@ -171,9 +211,9 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
       var i;
       conseillerFactory.getConseillersofGroup(idgroup).then(function(reponse){
         $scope.conseillers= reponse;
-        $scope.models.lists["Conseillers du groupe"] = [];
+        $scope.models[0].items = [];
         for(i=0; i < reponse.length;i++){
-          $scope.models.lists["Conseillers du groupe"].push(reponse[i]);
+          $scope.models[0].items.push(reponse[i]);
         }
 
       });
@@ -183,9 +223,9 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
       var i;
       conseillerFactory.getConseillersRestants().then(function(reponse){
         $scope.conseillers= reponse;
-        $scope.models.lists["Conseillers restants"] = [];
+        $scope.models[1].items = [];
         for(i=0; i < reponse.length;i++){
-          $scope.models.lists["Conseillers restants"].push(reponse[i]);
+          $scope.models[1].items.push(reponse[i]);
         }
 
       });

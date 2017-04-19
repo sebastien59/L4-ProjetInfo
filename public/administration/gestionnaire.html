@@ -75,22 +75,22 @@
   </div>
 </div>
 <div class="row">
-  <div class="groupList col-lg-4 col-md-4 col-sm-6 col-lg-offset-2" ng-repeat="(listName, list) in models.lists">
-    <h2>{{ listName }}</h2>
+  <div class="groupList col-lg-4 col-md-4 col-sm-6 col-lg-offset-2"  ng-repeat="list in models">
+    <h2>{{ list.listName }}</h2>
 
-    <ul dnd-list="list" class="well" style="padding-left: 15px; margin-bottom:10px;">
-      <li ng-repeat="item in list"
-          dnd-draggable="item"
-          dnd-moved="list.splice($index, 1)"
-          dnd-effect-allowed="move"
-          dnd-selected="models.selected = item"
-          ng-class="{'selected': models.selected === item}"
-          >
-          <div class="col-lg-9 col-md-9 col-sm-9 col-xs-9">{{ item.nom}}</div>
-          <div class="glyphicon glyphicon-trash col-lg-2 col-md-2 col-sm-2 col-xs-2"></div>
-          <div class="glyphicon glyphicon-edit"></div>
-      </li>
-    </ul>
+    <ul dnd-list dnd-drop="onDrop(list.listName, list, item, index)">
+    <li ng-repeat="item in list.items"
+        dnd-draggable="getSelectedItemsIncluding(list, item)"
+        dnd-dragstart="onDragstart(list, event)"
+        dnd-moved="onMoved(list)"
+        dnd-dragend="list.dragging = false"
+
+        ng-class="{'selected': item.selected}"
+        ng-hide="list.dragging && item.selected"
+        >
+        {{item.nom}}
+    </li>
+</ul>
   </div>
 </div>
 
