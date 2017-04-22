@@ -160,11 +160,11 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
                        .concat(list.items.slice(index));
 
            if(listname == "Conseillers du groupe"){
-              idGroupe = $scope.selected_group;
+              var idGroupe = $scope.selected_group;
            }else{
              idGroupe = null;
            }
-
+           conseillerFactory.addConseillerGroupe(idGroupe);
            //requête ajax grâce à la factory conseiller et en utilisant idGroupe 
            return true;
          }

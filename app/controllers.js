@@ -135,6 +135,11 @@ let addGroupController = (req, res) => {
   }
 };
 
+let AddUserInGroupController = (req, res) => {
+console.log("coucou");
+
+}
+
 let conseillerController = (req, res) =>{
   console.log(new Date()+" : Accès route conseiller");
   res.sendfile('./public/conseiller/index.html');
@@ -265,6 +270,7 @@ module.exports = {
   showUsersOfgroups:ShowConseillerOfGroupController,
   showUsersRestants : showUsersRestantsController,
   addgroup: addGroupController,
+  addUserInGroup: AddUserInGroupController, 
   getUser: getUserController,
   updateUser: updateUserController,
   historique: getHistorique,
