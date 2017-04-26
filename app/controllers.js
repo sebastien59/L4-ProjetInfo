@@ -95,7 +95,7 @@ let ShowGroupsController = (req, res) => {
 let ShowConseillerOfGroupController = (req, res) => {
   var groupe_selected = req.body.groupeId;
   User.findAll({
-    attributes: ['nom','prenom'],
+    attributes: ['nom','prenom','id'],
       where: {
       statutId:2,
       groupeId:groupe_selected
@@ -108,26 +108,22 @@ let ShowConseillerOfGroupController = (req, res) => {
 let showUsersRestantsController = (req, res) => {
 
   User.findAll({
-    attributes: ['nom','prenom'],
+    attributes: ['nom','prenom','id'],
       where: {
       statutId:2,
       groupeId:null
     }
   }).then(function(users){
-    console.log(users);
       res.send(JSON.stringify(users));
     });
   }
 
 let addGroupController = (req, res) => {
-  console.log(req.body);
   if(req.body.nomGroupe != ""){
     Group.create({
       intitule: req.body.nomGroupe,
       entrepriseId: req.session.entreprise
     }).then(function(groupe){
-        console.log(groupe)
-
         res.json({id : groupe.get('id'), intitule: groupe.get("intitule")});
     })
   }else{
@@ -136,8 +132,16 @@ let addGroupController = (req, res) => {
 };
 
 let AddUserInGroupController = (req, res) => {
-console.log("coucou");
-
+idconseiller = req.body.conseillerId;
+idgroupe = req.body.groupeId;
+    User.update(
+      { groupeId : idgroupe } ,
+      {
+        where: { id: idconseiller }
+      }
+    ).then(function(user){
+      res.json({result: 1});
+    });
 }
 
 let conseillerController = (req, res) =>{
@@ -167,7 +171,6 @@ let getHistorique = (req, res) => {
             .query('SELECT * FROM appels a JOIN users u ON u.id=a.idConseiller', { model: Appel })
             .then(function(appels){
                 appels = appels.map(function(obj){
-                  console.log(obj.get("getJson"))
                   return obj.get("getJson");
                 });
               res.json(chats.concat(appels));
@@ -193,7 +196,6 @@ let getUserHistorique = (req, res) => {
                 appels = appels.map(function(obj){
                   return obj.get("getJson");
                 });
-              console.log(chats.concat(appels));
               res.json(chats.concat(appels));
             });
       });
@@ -223,7 +225,6 @@ let getUserController = (req, res) =>{
 }
 
 let updateUserController = (req, res) =>{
-  console.log("body :::: ", req.body)
   let bool = 0;
   if(req.body.password == ""){
     delete req.body.password;
@@ -232,9 +233,6 @@ let updateUserController = (req, res) =>{
     bool = 1;
   }
 
-  console.log("Session :::: ", req.session)
-
-  console.log("body :::: ", req.body)
 
   if(bool == 0){
     delete req.body.passwordConfirm;
@@ -250,7 +248,6 @@ let updateUserController = (req, res) =>{
         where: { id: req.session.idUser }
       }
     ).then(function(user){
-      console.log(user)
       res.json({result: 1});
     });
   }
@@ -270,7 +267,7 @@ module.exports = {
   showUsersOfgroups:ShowConseillerOfGroupController,
   showUsersRestants : showUsersRestantsController,
   addgroup: addGroupController,
-  addUserInGroup: AddUserInGroupController, 
+  AddUserInGroup: AddUserInGroupController, 
   getUser: getUserController,
   updateUser: updateUserController,
   historique: getHistorique,

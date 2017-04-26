@@ -164,7 +164,7 @@ app.controller('gestionnaireCtrl',[ '$scope', '$location', '$http', 'userFactory
            }else{
              idGroupe = null;
            }
-           conseillerFactory.addConseillerGroupe(idGroupe);
+           conseillerFactory.addConseillerGroupe(idGroupe,items);
            //requête ajax grâce à la factory conseiller et en utilisant idGroupe 
            return true;
          }
