@@ -532,7 +532,10 @@ io.sockets.on('connection', function (socket) {
         });
     });
 
-
+    socket.on('callID', function(data){
+      console.log(data);
+      console.log(socket.broadcast.to('room'+data.emailClient).emit('call', {emailClient: data.emailClient, call: data.call}));
+    });
 
     socket.on('closeSwal', function(data){
       socket.broadcast.to('room'+data.groupe.id).emit('closeSwal', true);

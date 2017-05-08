@@ -4,7 +4,7 @@ app.controller('conseillerCtrl', function($scope, $location, $rootScope, chatsFa
   $scope.user={}
   $scope.user.password != '';
   $scope.user.passwordConfirm != '';
-
+  $rootScope.socket=io.connect('http://localhost:8080');
 
   switch($location.path()){
     case '/conseiler/':
@@ -251,7 +251,7 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
         //display('<input type="text" value="' + location.href + '" readonly>');
         display(call);
 
-        $rootScope.socket.emit('callID', call);
+        $rootScope.socket.emit('callID', { emailClient: $scope.chat.emailClient  ,call: call});
       }
 
       function unsupported() {

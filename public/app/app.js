@@ -1,9 +1,6 @@
 'use strict';
 
 var app = angular.module('ServiceClient', ['ngRoute', 'ngAnimate', 'ngTouch', 'ui.bootstrap', 'dndLists']);
-app.run(function($rootScope){
-    $rootScope.socket=io.connect('http://localhost:8080');
-});
 app.config(function ($routeProvider, $locationProvider) {
   $locationProvider.html5Mode(true);
   $routeProvider

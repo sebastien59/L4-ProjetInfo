@@ -156,8 +156,10 @@
           this.append(select);
         }
 
-
-
+        socket.on('call', function(data){
+          console.log(data);
+          data.call
+        });
 
         // State
         var me = {};
@@ -165,17 +167,24 @@
         var peers = {};
         var call = {};
 
-        $.fn.initVoice = function(){
-          $.get(site_url+'/peer/new', function(data){
-            console.log(data);
-            console.log("test");
-            // Handle prefixed versions
-            navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
+        $.fn.initVoice = function(initData){
+          var initData = (typeof(initData) === undefined)?null:initData;
+          if(initData === null){
+            $.get(site_url+'/peer/new', function(data){
+              console.log(data);
+              console.log("test");
+              // Handle prefixed versions
+              navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia);
 
-            call = data.call;
+              call = data.call;
 
+              init();
+            });
+          }else{
+            console.log(initData);
+            call=initData.call;
             init();
-          });
+          }
         }
 
 
@@ -218,7 +227,9 @@
         // Add our ID to the list of PeerJS IDs for this call
         function registerIdWithServer() {
           display('Registering ID with server...');
-          $.post(site_url+'/peer/' + call.id + '/addpeer/' + me.id);
+          var id = me.id;
+          console.log(call);
+          $.post(site_url+'/peer/' + call.id + '/addpeer/' + id);
         }
 
         // Remove our ID from the call's list of IDs
@@ -290,7 +301,7 @@
             }
           );
         }
-        
+
 
         ////////////////////////////////////
         // Helper functions
@@ -300,11 +311,13 @@
 
         function displayShareMessage() {
           display('Give someone this URL to chat.');
-          display('<input type="text" value="' + location.href + '" readonly>');
+          //display('<input type="text" value="' + location.href + '" readonly>');
 
-          $('#display input').click(function() {
+          /*$('#display input').click(function() {
             this.select();
-          });
+          });*/
+
+
         }
 
         function unsupported() {
