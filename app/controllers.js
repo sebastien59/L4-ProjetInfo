@@ -43,18 +43,34 @@ let authController = (req, res) =>{
           req.session.prenom = user.get("prenom");
           req.session.statut = statut.get('libelle');
           req.session.entreprise= user.get('entrepriseId');
-
-          if(req.session.statut == "Administrateur"){
-            res.redirect("/admin");
-          }else if (req.session.statut == "Conseiller") {
-            res.redirect("/conseiller");
-          }else if(req.session.statut == "Client"){
-            res.redirect("/client");
+          if(user.get("groupeId")!=null){
+            Group.findOne({
+              where:{ id: user.get("groupeId")}
+            }).then(function(groupe){
+              req.session.groupe={id: user.get('groupeId'), nom: groupe.get('intitule') };
+              if(req.session.statut == "Administrateur"){
+                res.redirect("/admin");
+              }else if (req.session.statut == "Conseiller") {
+                res.redirect("/conseiller");
+              }else if(req.session.statut == "Client"){
+                res.redirect("/client");
+              }
+            })
+          }else{
+            req.session.groupe =null;
+            if(req.session.statut == "Administrateur"){
+              res.redirect("/admin");
+            }else if (req.session.statut == "Conseiller") {
+              res.redirect("/conseiller");
+            }else if(req.session.statut == "Client"){
+              res.redirect("/client");
+            }
           }
+
       });
     }else{
         res.redirect("/login")
-      }
+    }
   });
 };
 
@@ -221,7 +237,8 @@ let getUserController = (req, res) =>{
             nom: req.session.nom,
             prenom: req.session.prenom,
             statut: req.session.statut,
-            entreprise: req.session.entreprise});
+            entreprise: req.session.entreprise,
+            groupe:req.session.groupe});
 }
 
 let updateUserController = (req, res) =>{
@@ -267,7 +284,7 @@ module.exports = {
   showUsersOfgroups:ShowConseillerOfGroupController,
   showUsersRestants : showUsersRestantsController,
   addgroup: addGroupController,
-  AddUserInGroup: AddUserInGroupController, 
+  AddUserInGroup: AddUserInGroupController,
   getUser: getUserController,
   updateUser: updateUserController,
   historique: getHistorique,

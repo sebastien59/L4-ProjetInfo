@@ -9,6 +9,8 @@ let controller = require('./app/controllers.js');
 let database = require('./config/database.js');
 let bodyParser = require('body-parser');
 var authMiddleware = require('./app/middleware/auth.js');
+var Call = require('./call.js');
+var cors = require('cors')
 
 // initialisation de expressJs
 let app=express();
@@ -345,7 +347,7 @@ database.sequelize
       });
 
 
-
+app.use(cors())
 
 // Permet d'utiliser le .body pour récupérer les paramètres des requêtes
 app.use(bodyParser.urlencoded({extended: true}));
@@ -407,7 +409,144 @@ app.get('/views/admin/historique.html', (req, res) => {
   res.sendfile('./public/administration/historique.html');
 });
 
+app.get('/audio/notification', (req, res) => {
+  res.sendfile('./public/notifacationSong.mp3');
+});
+
+
+// Create a new Call instance, and redirect
+app.get('/peer/new', function(req, res) {
+  var call = Call.create();
+  res.redirect('/peer/' + call.id);
+});
+
+// Add PeerJS ID to Call instance when someone opens the page
+app.post('/peer/:id/addpeer/:peerid', function(req, res) {
+  var call = Call.get(req.param('id'));
+  if (!call) return res.status(404).send('Call not found');
+  call.addPeer(req.param('peerid'));
+  res.json(call.toJSON());
+});
+
+// Remove PeerJS ID when someone leaves the page
+app.post('/peer/:id/removepeer/:peerid', function(req, res) {
+  var call = Call.get(req.param('id'));
+  if (!call) return res.status(404).send('Call not found');
+  call.removePeer(req.param('peerid'));
+  res.json(call.toJSON());
+});
+
+// Return JSON representation of a Call
+app.get('/peer/:id.json', function(req, res) {
+  var call = Call.get(req.param('id'));
+  if (!call) return res.status(404).send('Call not found');
+  res.json(call.toJSON());
+});
+
+// Render call page
+app.get('/peer/:id', function(req, res) {
+  var call = Call.get(req.param('id'));
+  if (!call) return res.redirect('/new');
+
+  res.send({
+    call: call.toJSON()
+  });
+});
+
 app.use(controller.error);
 
 // Initialisation du port d'écoute.
-app.listen(8080);
+let l = app.listen(8080);
+
+var io = require('socket.io').listen(l);
+
+io.sockets.on('connection', function (socket) {
+
+    socket.on('conseillerConnexion', function(data){
+      console.log("Ajout à la room");
+      socket.join('room'+data.groupe.id);
+    });
+
+    socket.on('userConnexion', function(data){
+      socket.room = 'room'+data.emailClient;
+      socket.groupe = data.groupe;
+      socket.entrepriseId = data.entrepriseId;
+      console.log(data.groupe)
+      console.log("Utilisateur connecté room"+data.groupe.id);
+      socket.broadcast.to('room'+data.groupe.id).emit('needConseiller', {entrepriseId: data.entrepriseId, emailClient:data.emailClient});
+
+      socket.emailClient = data.emailClient;
+      socket.join('room' + data.emailClient);
+    });
+
+    console.log(socket.conn.id);
+
+    socket.on('conseillerJoinRoom', function(data){
+      console.log(data)
+      console.log("Conseiller a rejoint la room"+data.emailClient);
+      socket.room = 'room'+data.emailClient;
+      socket.join('room'+data.emailClient);
+
+      Chat.create({
+          "idConseiller": data.user.id,
+          "note": null,
+          "idEntreprise": data.entrepriseId,
+          "emailClient": data.emailClient,
+          "dateDebut": new Date(),
+          "dateFin": null,
+          "fini": false
+        }).then(function(chat){
+          socket.chatId=chat.get('id');
+          console.log("chatid : "+socket.chatId);
+          socket.emit('createChat', {
+              'id': chat.get('id'),
+              "idConseiller": null,
+              "idEntreprise": data.entrepriseId,
+              "emailClient": data.emailClient,
+              "dateDebut": chat.get('dateDebut'),
+              'messages':[]
+            });
+          socket.broadcast.to('room'+data.emailClient).emit('chatinfo', {
+                'id': chat.get('id'),
+                "idConseiller": null,
+                "idEntreprise": data.entrepriseId,
+                "emailClient": data.emailClient,
+                "dateDebut": chat.get('dateDebut'),
+                'messages':[]
+              });
+        });
+      socket.broadcast.to('room'+data.emailClient).emit('initConnexion', 'Le conseiller est connecté.')
+      socket.emit('initConnexion', 'Conseiller connecté.');
+    })
+
+    socket.on('message', function (data) {
+        socket.chatId=data.chatId;
+        socket.broadcast.to('room'+data.emailClient).emit('message', {chatId: data.chatId, message:data.message});
+        console.log(data.user)
+        Message.create({
+          text:data.message,
+          date: new Date(),
+          idChat: data.chatId,
+          idFichier:null,
+          isConseiller: (data.user !== undefined)
+        });
+    });
+
+
+
+    socket.on('closeSwal', function(data){
+      socket.broadcast.to('room'+data.groupe.id).emit('closeSwal', true);
+    });
+
+    socket.on('disconnect', function(){
+        console.log("Deconnexion");
+        console.log(socket.room);
+        console.log(socket.chatId);
+        socket.broadcast.to(socket.room).emit('user_leave', {chatId: socket.chatId});
+        Chat.update({
+            "dateFin": new Date,
+            "fini": true
+          },
+          { where: {id:socket.chatId}});
+    });
+});

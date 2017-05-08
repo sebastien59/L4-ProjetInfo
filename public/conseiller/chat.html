@@ -1,11 +1,13 @@
 <h1>Chat {{ chat.id }}</h1>
+
+<button type="button" class="btn btn-xs btn-danger" ng-click="startVoiceChat()" aria-label="start">start voice chat</button>
 <div class="chat row">
   <div class="well col-lg-10 col-md-10 col-sm-10 col-xs-10 col-lg-offset-1 col-md-offset-1 col-sm-offset-1 col-xs-offset-1">
     <div class="chatbox">
       <div ng-repeat='message in chat.messages'>
         <div ng-class="[  'message',
                           'col-lg-6 col-md-6 col-sm-6 col-xs-6',
-                          {'mymessage col-lg-offset-6 col-md-offset-6 col-sm-offset-6 col-xs-offset-6': user.id==message.idSender},
+                          {'mymessage col-lg-offset-6 col-md-offset-6 col-sm-offset-6 col-xs-offset-6': message.isConseiller == 1}
                         ]">
           {{ message.texte }}
         </div>
