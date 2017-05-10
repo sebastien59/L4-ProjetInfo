@@ -152,7 +152,7 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
       // Connect to PeerJS and get an ID
       function connectToPeerJS(cb) {
         display('Connecting to PeerJS...');
-        me = new Peer({key: 'dewpt2r4rpddvx6r'});
+        me = new Peer({host: 'peerjsproject.herokuapp.com', port: 443, path: '/'});
 
         me.on('call', handleIncomingCall);
 
