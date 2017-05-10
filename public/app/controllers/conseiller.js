@@ -4,7 +4,12 @@ app.controller('conseillerCtrl', function($scope, $location, $rootScope, chatsFa
   $scope.user={}
   $scope.user.password != '';
   $scope.user.passwordConfirm != '';
-  $rootScope.socket=io.connect('http://localhost:8080');
+
+  if (location.hostname === "localhost" || location.hostname === "127.0.0.1")
+    $rootScope.socket=io.connect('http://localhost:8080');
+  else {
+    $rootScope.socket=io.connect('https://projetinfo.merchez.com');
+  }
 
   switch($location.path()){
     case '/conseiler/':
