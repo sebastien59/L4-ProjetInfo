@@ -68,6 +68,7 @@ app.controller('conseillerCtrl', function($scope, $location, $rootScope, chatsFa
     swal.close();
   })
 
+
   $rootScope.socket.on('message', function(data){
     chatsFactory.addMessage(data.chatId, data.message, 0);
     $scope.$apply(function () {
@@ -110,6 +111,10 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
   }
 
 
+  $rootScope.socket.on('call', function(data){
+    console.log(data);
+    $scope.startVoiceChat();
+  });
 
     $scope.startVoiceChat = function(){
       // State
@@ -152,7 +157,44 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
       // Connect to PeerJS and get an ID
       function connectToPeerJS(cb) {
         display('Connecting to PeerJS...');
-        me = new Peer({host: 'peerjsproject.herokuapp.com', port: 443, path: '/'});
+        me = new Peer({host: 'peerjs.merchez.com', port: 9000, path: '/', config: {
+          "iceServers":[
+            {url:'stun:stun01.sipphone.com'},
+            {url:'stun:stun.ekiga.net'},
+            {url:'stun:stun.fwdnet.net'},
+            {url:'stun:stun.ideasip.com'},
+            {url:'stun:stun.iptel.org'},
+            {url:'stun:stun.rixtelecom.se'},
+            {url:'stun:stun.schlund.de'},
+            {url:'stun:stun.l.google.com:19302'},
+            {url:'stun:stun1.l.google.com:19302'},
+            {url:'stun:stun2.l.google.com:19302'},
+            {url:'stun:stun3.l.google.com:19302'},
+            {url:'stun:stun4.l.google.com:19302'},
+            {url:'stun:stunserver.org'},
+            {url:'stun:stun.softjoys.com'},
+            {url:'stun:stun.voiparound.com'},
+            {url:'stun:stun.voipbuster.com'},
+            {url:'stun:stun.voipstunt.com'},
+            {url:'stun:stun.voxgratia.org'},
+            {url:'stun:stun.xten.com'},
+            {
+              url: 'turn:numb.viagenie.ca',
+              credential: 'muazkh',
+              username: 'webrtc@live.com'
+            },
+            {
+              url: 'turn:192.158.29.39:3478?transport=udp',
+              credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+              username: '28224511:1379330808'
+            },
+            {
+              url: 'turn:192.158.29.39:3478?transport=tcp',
+              credential: 'JZEOEt2V3Qb0y27GRntt2u2PAYA=',
+              username: '28224511:1379330808'
+            }
+          ]
+        },debug: 3});
 
         me.on('call', handleIncomingCall);
 
@@ -188,6 +230,7 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
       function callPeer(peerId) {
         display('Calling ' + peerId + '...');
         var peer = getPeer(peerId);
+        console.log("stream", myStream)
         peer.outgoing = me.call(peerId, myStream);
 
         peer.outgoing.on('error', function(err) {
@@ -195,6 +238,7 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
         });
 
         peer.outgoing.on('stream', function(stream) {
+          console.log("caaallllll out")
           display('Connected to ' + peerId + '.');
           addIncomingStream(peer, stream);
         });
@@ -205,8 +249,10 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
         display('Answering incoming call from ' + incoming.peer);
         var peer = getPeer(incoming.peer);
         peer.incoming = incoming;
+        console.log("stream", myStream)
         incoming.answer(myStream);
         peer.incoming.on('stream', function(stream) {
+          console.log("caaallllll in")
           addIncomingStream(peer, stream);
         });
       }
@@ -234,7 +280,8 @@ app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, us
 
           function success(audioStream) {
             display('Microphone is open.');
-            var myStream = audioStream;
+            myStream = audioStream;
+            console.log("steam 1", myStream)
             if (cb) cb(null, myStream);
           },
 
