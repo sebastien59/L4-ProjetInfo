@@ -96,20 +96,23 @@ app.controller('conseillerCtrl', function($scope, $location, $rootScope, chatsFa
 
 });
 
-app.controller('chatCtrl', function($scope, $route, $rootScope, chatsFactory, userFactory){
+app.controller('chatCtrl', function($scope, $route, $location, $rootScope, chatsFactory, userFactory){
   $scope.id = $route.current.params.id;
 
   $scope.user = userFactory.get();
   $scope.chat=chatsFactory.getById($scope.id);
 
-  $scope.chat.nonlu=0;
+  if($scope.chat == undefined)
+    $location.path('/conseiller');
+  else{
+    $scope.chat.nonlu=0;
+  }
 
   $scope.sendMessage = function(message){
     chatsFactory.sendMessage($scope.id, message, 1);
     $rootScope.socket.emit('message', {chatId: $scope.chat.id,  user: $scope.user, message: message, emailClient: $scope.chat.emailClient});
     $scope.inputMessage = "";
   }
-
 
   $rootScope.socket.on('call', function(data){
     console.log(data);
